@@ -10,6 +10,7 @@ const DICT = {
     "nav.news": "Actualités",
     "nav.contact": "Contact",
     "nav.cta": "Nous contacter",
+    "header.search": "Rechercher un produit...",
 
     "home.eyebrow": "Fabricant & distributeur — Sfax, Tunisie",
     "home.title1": "Des produits du quotidien,",
@@ -114,6 +115,22 @@ const DICT = {
     "products.item8.title": "Papier cuisson réversible 6 m",
     "products.item8.desc": "Cuisine, réutilisable",
     "products.item.cta": "Demander un tarif",
+    "products.link.catalog": "Voir le catalogue complet",
+    "products.badge.new": "Nouveau",
+    "products.badge.promo": "Promo",
+    "products.promo.title": "Tout pour l'entretien de la maison",
+    "products.promo.li1": "Qualité contrôlée à chaque étape",
+    "products.promo.li2": "Livraison rapide dans toute la Tunisie",
+    "products.promo.li3": "Large choix de références",
+    "products.promo.cta": "Découvrir la gamme",
+    "products.trust1.title": "Livraison rapide",
+    "products.trust1.text": "Partout en Tunisie",
+    "products.trust2.title": "Produits de qualité",
+    "products.trust2.text": "Sélectionnés avec soin",
+    "products.trust3.title": "Accompagnement commercial",
+    "products.trust3.text": "Une équipe à votre écoute",
+    "products.trust4.title": "Sfax · Tunisie",
+    "products.trust4.text": "Notre siège & production",
 
     "products.cta.title": "Vous êtes revendeur ou grossiste ?",
     "products.cta.text": "Demandez l'accès au catalogue complet avec tarifs détail et gros, et à notre équipe commerciale dédiée.",
@@ -168,6 +185,7 @@ const DICT = {
     "nav.news": "News",
     "nav.contact": "Contact",
     "nav.cta": "Contact us",
+    "header.search": "Search a product...",
 
     "home.eyebrow": "Manufacturer & distributor — Sfax, Tunisia",
     "home.title1": "Everyday products,",
@@ -272,6 +290,22 @@ const DICT = {
     "products.item8.title": "Reusable baking paper, 6 m",
     "products.item8.desc": "Kitchen, reusable",
     "products.item.cta": "Request pricing",
+    "products.link.catalog": "View the full catalogue",
+    "products.badge.new": "New",
+    "products.badge.promo": "Deal",
+    "products.promo.title": "Everything for home cleaning",
+    "products.promo.li1": "Quality checked at every step",
+    "products.promo.li2": "Fast delivery across Tunisia",
+    "products.promo.li3": "A wide range of references",
+    "products.promo.cta": "Discover the range",
+    "products.trust1.title": "Fast delivery",
+    "products.trust1.text": "Across Tunisia",
+    "products.trust2.title": "Quality products",
+    "products.trust2.text": "Carefully selected",
+    "products.trust3.title": "Sales support",
+    "products.trust3.text": "A team at your service",
+    "products.trust4.title": "Sfax, Tunisia",
+    "products.trust4.text": "Our headquarters & production",
 
     "products.cta.title": "Are you a retailer or wholesaler?",
     "products.cta.text": "Request access to our full catalogue with retail and wholesale pricing, and our dedicated sales team.",
@@ -497,6 +531,43 @@ function initContactForm() {
   });
 }
 
+function initProductSearch() {
+  const form = document.querySelector(".header-search");
+  if (!form) return;
+  const input = form.querySelector("input");
+  const grid = document.querySelector(".product-grid");
+
+  function applyFilter(term) {
+    if (!grid) return;
+    const needle = term.trim().toLowerCase();
+    grid.querySelectorAll(".product-card").forEach((card) => {
+      const match = !needle || card.textContent.toLowerCase().includes(needle);
+      card.style.display = match ? "" : "none";
+    });
+  }
+
+  form.addEventListener("submit", (e) => {
+    if (!grid) return; // laisse le formulaire naviguer vers products.html?q=...
+    e.preventDefault();
+    applyFilter(input.value);
+    grid.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  if (grid) {
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) {
+      input.value = q;
+      applyFilter(q);
+    }
+  }
+}
+
+function initWishlistButtons() {
+  document.querySelectorAll(".wish-btn").forEach((btn) => {
+    btn.addEventListener("click", () => btn.classList.toggle("active"));
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initLangSwitch();
   initMobileNav();
@@ -504,4 +575,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
   initParticles();
   initCounters();
+  initProductSearch();
+  initWishlistButtons();
 });
