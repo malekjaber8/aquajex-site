@@ -8,7 +8,7 @@
 <link rel="icon" href="images/logo_aquajex.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -38,29 +38,49 @@
 </header>
 
 <section class="hero">
-  <canvas class="hero-canvas" id="hero-particles"></canvas>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
   <div class="container">
     <div>
       <span class="eyebrow" data-i18n="home.eyebrow">Fabricant & distributeur — Sfax, Tunisie</span>
       <h1>
         <span data-i18n="home.title1">Des produits du quotidien,</span><br />
-        <span class="accent" data-i18n="home.title2">pensés pour durer.</span>
+        <span class="accent">
+          <span data-i18n="home.title2">pensés pour durer.</span>
+          <svg viewBox="0 0 220 14" preserveAspectRatio="none"><path d="M2 9c35-10 70-10 106-5s100 7 112-3" stroke="#2f6fed" stroke-width="5" stroke-linecap="round" fill="none"/></svg>
+        </span>
       </h1>
       <p class="lead" data-i18n="home.lead">STE AQUAJEX 5F conçoit et distribue deux gammes d'entretien et d'hygiène de la maison — Aquajex et Les Cinq Frères — pensées pour les familles comme pour les professionnels, partout en Tunisie et à l'export.</p>
       <div class="hero-actions">
-        <a href="products.html" class="btn btn-gold"><span data-i18n="home.cta.products">Découvrir les produits</span></a>
-        <a href="contact.html" class="btn btn-outline"><span data-i18n="home.cta.contact">Demander un tarif</span></a>
+        <a href="products.html" class="btn btn-gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="home.cta.products">Découvrir les produits</span>
+        </a>
+        <a href="contact.html" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <span data-i18n="home.cta.contact">Demander un tarif</span>
+        </a>
       </div>
       <div class="hero-stats">
-        <div><strong data-count="2" data-suffix="">0</strong><span data-i18n="home.stat1.l">marques maison</span></div>
-        <div><strong data-count="100" data-suffix="+">0</strong><span data-i18n="home.stat2.l">références produits</span></div>
-        <div><strong data-i18n="home.stat3.n">Sfax</strong><span data-i18n="home.stat3.l">siège & production</span></div>
+        <div>
+          <div class="stat-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7M5 10v10h14V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><strong data-count="2" data-suffix="">0</strong><span data-i18n="home.stat1.l">marques maison</span></div>
+        </div>
+        <div>
+          <div class="stat-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M3 7.5l9-4 9 4-9 4-9-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 7.5V16l9 4 9-4V7.5M12 11.5V20" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <div><strong data-count="100" data-suffix="+">0</strong><span data-i18n="home.stat2.l">références produits</span></div>
+        </div>
+        <div>
+          <div class="stat-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <div><strong data-i18n="home.stat3.n">Sfax</strong><span data-i18n="home.stat3.l">siège & production</span></div>
+        </div>
       </div>
     </div>
     <div class="hero-visual">
+      <canvas class="hero-canvas" id="hero-particles"></canvas>
+      <div class="hero-blob"></div>
+      <div class="ripple ripple-1"></div>
+      <div class="ripple ripple-2"></div>
+      <div class="ripple ripple-3"></div>
+      <span class="script-tag script">Qualité<br />Hygiène<br />Confiance</span>
       <div class="logo-medal">
         <div class="medal-inner">
           <img src="images/logo_aquajex.jpg" alt="Aquajex" />
@@ -74,7 +94,7 @@
   </div>
 </section>
 
-<section class="deep">
+<section class="alt">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow" data-i18n="home.values.eyebrow">Pourquoi Aquajex 5F</span>

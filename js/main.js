@@ -326,8 +326,10 @@ function initParticles() {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  // Thème clair : de petites bulles d'eau translucides qui dérivent
+  // doucement, plutôt qu'un effet "constellation" (trop chargé sur fond
+  // blanc) — clin d'œil au nom Aquajex.
   let width, height, particles;
-  const COLORS = ["#3fd0c9", "#e3b655", "#ffffff"];
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
@@ -336,14 +338,14 @@ function initParticles() {
   }
 
   function makeParticles() {
-    const count = Math.min(70, Math.floor((width * height) / 18000));
+    const count = Math.min(26, Math.floor((width * height) / 42000));
     particles = Array.from({ length: count }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 1.8 + 0.6,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      r: Math.random() * 3 + 1.5,
+      vy: -(Math.random() * 0.22 + 0.08),
+      vx: (Math.random() - 0.5) * 0.08,
+      alpha: Math.random() * 0.25 + 0.12,
     }));
   }
 
@@ -352,30 +354,14 @@ function initParticles() {
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
+      if (p.y < -10) {
+        p.y = height + 10;
+        p.x = Math.random() * width;
+      }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = `rgba(47, 111, 237, ${p.alpha})`;
       ctx.fill();
-    }
-    // Lignes entre particules proches, pour un effet "constellation" discret.
-    ctx.globalAlpha = 1;
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const a = particles[i];
-        const b = particles[j];
-        const dist = Math.hypot(a.x - b.x, a.y - b.y);
-        if (dist < 110) {
-          ctx.strokeStyle = `rgba(63, 208, 201, ${0.12 * (1 - dist / 110)})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
     }
     if (!reduceMotion) requestAnimationFrame(step);
   }
