@@ -2114,12 +2114,29 @@ footer.site-footer {
     padding: 136px 0 56px;
   }
 
-  .header-actions .btn span.full {
+  .header-actions .btn-primary {
     display: none;
   }
 
   .icon-btn.icon-account {
     display: none;
+  }
+
+  .brand-feature {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 24px;
+  }
+
+  .brand-feature::before {
+    left: 50%;
+    margin-left: -95px;
+  }
+
+  .brand-feature-text p {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
