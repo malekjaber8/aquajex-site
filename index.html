@@ -38,6 +38,10 @@
 </header>
 
 <section class="hero">
+  <canvas class="hero-canvas" id="hero-particles"></canvas>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
   <div class="container">
     <div>
       <span class="eyebrow" data-i18n="home.eyebrow">Fabricant & distributeur — Sfax, Tunisie</span>
@@ -51,33 +55,26 @@
         <a href="contact.html" class="btn btn-outline"><span data-i18n="home.cta.contact">Demander un tarif</span></a>
       </div>
       <div class="hero-stats">
-        <div><strong data-i18n="home.stat1.n">2</strong><span data-i18n="home.stat1.l">marques maison</span></div>
-        <div><strong data-i18n="home.stat2.n">100+</strong><span data-i18n="home.stat2.l">références produits</span></div>
+        <div><strong data-count="2" data-suffix="">0</strong><span data-i18n="home.stat1.l">marques maison</span></div>
+        <div><strong data-count="100" data-suffix="+">0</strong><span data-i18n="home.stat2.l">références produits</span></div>
         <div><strong data-i18n="home.stat3.n">Sfax</strong><span data-i18n="home.stat3.l">siège & production</span></div>
       </div>
     </div>
     <div class="hero-visual">
-      <div class="brand-cards">
-        <div class="brand-card tilt">
+      <div class="logo-medal">
+        <div class="medal-inner">
           <img src="images/logo_aquajex.jpg" alt="Aquajex" />
-          <div>
-            <h4 data-i18n="home.card1.title">Aquajex</h4>
-            <p data-i18n="home.card1.sub">Entretien & nettoyage</p>
-          </div>
         </div>
-        <div class="brand-card tilt2">
-          <img src="images/logo_cinq_freres.png" alt="Les Cinq Frères" />
-          <div>
-            <h4 data-i18n="home.card2.title">Les Cinq Frères</h4>
-            <p data-i18n="home.card2.sub">Hygiène & maison</p>
-          </div>
-        </div>
+      </div>
+      <div class="brand-chip chip-bottom">
+        <img src="images/logo_cinq_freres.png" alt="Les Cinq Frères" />
+        <span data-i18n="home.card2.title">Les Cinq Frères</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="alt">
+<section class="deep">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow" data-i18n="home.values.eyebrow">Pourquoi Aquajex 5F</span>

@@ -318,6 +318,114 @@ function initLangSwitch() {
   });
 }
 
+function initParticles() {
+  const canvas = document.getElementById("hero-particles");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let width, height, particles;
+  const COLORS = ["#3fd0c9", "#e3b655", "#ffffff"];
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    width = canvas.width = rect.width;
+    height = canvas.height = rect.height;
+  }
+
+  function makeParticles() {
+    const count = Math.min(70, Math.floor((width * height) / 18000));
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 1.8 + 0.6,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    }));
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, width, height);
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.55;
+      ctx.fill();
+    }
+    // Lignes entre particules proches, pour un effet "constellation" discret.
+    ctx.globalAlpha = 1;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i];
+        const b = particles[j];
+        const dist = Math.hypot(a.x - b.x, a.y - b.y);
+        if (dist < 110) {
+          ctx.strokeStyle = `rgba(63, 208, 201, ${0.12 * (1 - dist / 110)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    if (!reduceMotion) requestAnimationFrame(step);
+  }
+
+  resize();
+  makeParticles();
+  step();
+  window.addEventListener("resize", () => {
+    resize();
+    makeParticles();
+    if (reduceMotion) step();
+  });
+}
+
+function initCounters() {
+  const items = document.querySelectorAll("[data-count]");
+  if (items.length === 0) return;
+
+  function animate(el) {
+    const target = parseInt(el.getAttribute("data-count"), 10);
+    const suffix = el.getAttribute("data-suffix") || "";
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    items.forEach(animate);
+    return;
+  }
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animate(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+  items.forEach((el) => obs.observe(el));
+}
+
 function initMobileNav() {
   const toggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector("nav.main-nav");
@@ -376,4 +484,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
   initReveal();
   initContactForm();
+  initParticles();
+  initCounters();
 });
