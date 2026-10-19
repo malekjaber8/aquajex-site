@@ -1074,21 +1074,47 @@ section {
 /* ---------- Family strip (catalogue-style category cards) ---------- */
 
 .family-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  display: flex;
   gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 2px 2px 14px;
+  margin-bottom: -10px;
+}
+
+.family-strip::-webkit-scrollbar {
+  height: 6px;
+}
+
+.family-strip::-webkit-scrollbar-thumb {
+  background: var(--blue-soft2);
+  border-radius: 10px;
 }
 
 .family-item {
+  position: relative;
+  flex: 0 0 150px;
+  scroll-snap-align: start;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 12px;
+  padding: 14px 12px 12px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.family-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-bright), var(--blue-deep));
 }
 
 .family-item:hover {
@@ -1100,7 +1126,7 @@ section {
   aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;
-  background: var(--blue-soft);
+  background: linear-gradient(150deg, var(--blue-soft), var(--blue-soft2));
 }
 
 .family-item .avatar img {
@@ -1139,6 +1165,35 @@ section {
 .family-item:hover .chev {
   background: var(--blue);
   color: #fff;
+}
+
+.family-item.more {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.family-item.more .more-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue-bright), var(--blue-deep));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.family-item.more:hover .more-circle {
+  transform: scale(1.08);
+}
+
+.family-item.more span {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--navy);
 }
 
 /* ---------- Product grid (real catalogue items, no pricing) ---------- */
