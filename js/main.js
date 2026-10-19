@@ -387,60 +387,62 @@ function initLangSwitch() {
 }
 
 function initParticles() {
-  const canvas = document.getElementById("hero-particles");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
+  // Thème clair : de petites bulles d'eau translucides qui dérivent
+  // doucement, plutôt qu'un effet "constellation" (trop chargé sur fond
+  // blanc) — clin d'œil au nom Aquajex. Chaque bannière avec un
+  // canvas.hero-canvas (hero principal, mini-bannière...) a sa propre
+  // animation indépendante.
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  // Thème clair : de petites bulles d'eau translucides qui dérivent
-  // doucement, plutôt qu'un effet "constellation" (trop chargé sur fond
-  // blanc) — clin d'œil au nom Aquajex.
-  let width, height, particles;
+  document.querySelectorAll("canvas.hero-canvas").forEach((canvas) => {
+    const ctx = canvas.getContext("2d");
+    let width, height, particles;
 
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    width = canvas.width = rect.width;
-    height = canvas.height = rect.height;
-  }
-
-  function makeParticles() {
-    const count = Math.min(26, Math.floor((width * height) / 42000));
-    particles = Array.from({ length: count }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      r: Math.random() * 3 + 1.5,
-      vy: -(Math.random() * 0.22 + 0.08),
-      vx: (Math.random() - 0.5) * 0.08,
-      alpha: Math.random() * 0.25 + 0.12,
-    }));
-  }
-
-  function step() {
-    ctx.clearRect(0, 0, width, height);
-    for (const p of particles) {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.y < -10) {
-        p.y = height + 10;
-        p.x = Math.random() * width;
-      }
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(47, 111, 237, ${p.alpha})`;
-      ctx.fill();
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      width = canvas.width = rect.width;
+      height = canvas.height = rect.height;
     }
-    if (!reduceMotion) requestAnimationFrame(step);
-  }
 
-  resize();
-  makeParticles();
-  step();
-  window.addEventListener("resize", () => {
+    function makeParticles() {
+      const count = Math.min(26, Math.floor((width * height) / 42000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 3 + 1.5,
+        vy: -(Math.random() * 0.22 + 0.08),
+        vx: (Math.random() - 0.5) * 0.08,
+        alpha: Math.random() * 0.25 + 0.12,
+      }));
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, width, height);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < -10) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(47, 111, 237, ${p.alpha})`;
+        ctx.fill();
+      }
+      if (!reduceMotion) requestAnimationFrame(step);
+    }
+
     resize();
     makeParticles();
-    if (reduceMotion) step();
+    step();
+    window.addEventListener("resize", () => {
+      resize();
+      makeParticles();
+      if (reduceMotion) step();
+    });
   });
 }
 
