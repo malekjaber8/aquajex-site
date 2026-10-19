@@ -37,7 +37,7 @@
   </div>
 </header>
 
-<section class="hero hero-compact">
+<section class="hero hero-compact hero-with-visual">
   <canvas class="hero-canvas" id="hero-particles"></canvas>
   <div class="hero-blob-bg blob-a"></div>
   <div class="hero-blob-bg blob-b"></div>
@@ -46,6 +46,32 @@
       <span class="eyebrow" data-i18n="products.eyebrow">Catalogue</span>
       <h1 data-i18n="products.title">Deux marques, une large gamme de produits</h1>
       <p class="lead" data-i18n="products.lead">Un aperçu de nos familles de produits. Le catalogue complet, avec les prix professionnels, est réservé à nos revendeurs et commerciaux via notre outil interne — contactez-nous pour y accéder.</p>
+      <div class="hero-actions">
+        <a href="#familles" class="btn btn-gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="products.hero.cta1">Explorer les familles</span>
+        </a>
+        <a href="contact.html" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <span data-i18n="nav.cta">Nous contacter</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-blob"></div>
+      <div class="ripple ripple-1"></div>
+      <div class="ripple ripple-2"></div>
+      <div class="ripple ripple-3"></div>
+      <span class="script-tag script">Qualité<br />Performance<br />Durabilité</span>
+      <div class="logo-medal">
+        <div class="medal-inner">
+          <img src="images/products/featured/brosse-a-dents.jpg" alt="Produits Aquajex 5F" />
+        </div>
+      </div>
+      <div class="brand-chip chip-bottom">
+        <img src="images/logo_aquajex.jpg" alt="Aquajex" />
+        <span data-i18n="products.hero.chip">+100 références produits</span>
+      </div>
     </div>
   </div>
 </section>
@@ -77,68 +103,118 @@
   </div>
 </section>
 
-<section>
+<section id="familles">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow" data-i18n="products.cats.eyebrow">Familles de produits</span>
       <h2 data-i18n="products.cats.title">Un assortiment pensé pour chaque rayon</h2>
       <p data-i18n="products.cats.lead">Un vrai aperçu, photos à l'appui, de nos familles les plus demandées.</p>
     </div>
-    <div class="photo-cat-grid">
-      <div class="photo-cat-card reveal">
-        <img src="images/products/microfibre.jpg" alt="Chiffons microfibre" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Aquajex</span>
-        <h3 data-i18n="products.p1">Chiffons & gants microfibre</h3>
+    <div class="family-strip">
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/microfibre.jpg" alt="Chiffons microfibre" loading="lazy" /></div>
+        <span data-i18n="products.p1">Chiffons & gants microfibre</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/eponges-jex.jpg" alt="Éponges Jex" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Les Cinq Frères</span>
-        <h3 data-i18n="products.p2">Éponges & tampons Jex</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/eponges-jex.jpg" alt="Éponges Jex" loading="lazy" /></div>
+        <span data-i18n="products.p2">Éponges & tampons Jex</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/cellulose.jpg" alt="Éponges cellulose" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Les Cinq Frères</span>
-        <h3 data-i18n="products.p3">Éponges cellulose</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/cellulose.jpg" alt="Éponges cellulose" loading="lazy" /></div>
+        <span data-i18n="products.p3">Éponges cellulose</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/spontex.jpg" alt="Éponges Spontex" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Les Cinq Frères</span>
-        <h3 data-i18n="products.p4">Éponges Spontex</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/spontex.jpg" alt="Éponges Spontex" loading="lazy" /></div>
+        <span data-i18n="products.p4">Éponges Spontex</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/plumeaux.jpg" alt="Plumeaux et balais microfibre" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Aquajex</span>
-        <h3 data-i18n="products.p5">Plumeaux & balais</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/plumeaux.jpg" alt="Plumeaux et balais microfibre" loading="lazy" /></div>
+        <span data-i18n="products.p5">Plumeaux & balais</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/serpilliere.jpg" alt="Serpillières" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Les Cinq Frères</span>
-        <h3 data-i18n="products.p6">Serpillières & chamoisines</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/serpilliere.jpg" alt="Serpillières" loading="lazy" /></div>
+        <span data-i18n="products.p6">Serpillières & chamoisines</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/aluminium.jpg" alt="Papier aluminium" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Les Cinq Frères</span>
-        <h3 data-i18n="products.p7">Papier aluminium</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/aluminium.jpg" alt="Papier aluminium" loading="lazy" /></div>
+        <span data-i18n="products.p7">Papier aluminium</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/cuisson.jpg" alt="Papier cuisson" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Les Cinq Frères</span>
-        <h3 data-i18n="products.p8">Papier cuisson</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/cuisson.jpg" alt="Papier cuisson" loading="lazy" /></div>
+        <span data-i18n="products.p8">Papier cuisson</span>
       </div>
-      <div class="photo-cat-card reveal">
-        <img src="images/products/hygiene.jpg" alt="Hygiène dentaire" loading="lazy" />
-        <div class="overlay"></div>
-        <span class="tag">Aquajex</span>
-        <h3 data-i18n="products.p9">Hygiène dentaire</h3>
+      <div class="family-item reveal">
+        <div class="avatar"><img src="images/products/hygiene.jpg" alt="Hygiène dentaire" loading="lazy" /></div>
+        <span data-i18n="products.p9">Hygiène dentaire</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="products.showcase.eyebrow">Sélection</span>
+      <h2 data-i18n="products.showcase.title">Nos produits phares</h2>
+      <p data-i18n="products.showcase.lead">Un échantillon de nos références les plus demandées, en conditionnement prêt à vendre.</p>
+    </div>
+    <div class="product-grid">
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/chiffons-microfibre.jpg" alt="Chiffons microfibre 2+1 gratuit" loading="lazy" /></div>
+        <span class="fam-tag">Aquajex</span>
+        <h3 data-i18n="products.item1.title">Chiffons microfibre 2+1 gratuit</h3>
+        <p data-i18n="products.item1.desc">Super-absorbants, lot de 3</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/jex-inox.jpg" alt="Jex métallique inox" loading="lazy" /></div>
+        <span class="fam-tag">Les Cinq Frères</span>
+        <h3 data-i18n="products.item2.title">Jex métallique inox, lot de 3</h3>
+        <p data-i18n="products.item2.desc">Tampons récurants cuisine</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/vadrouille.jpg" alt="Vadrouille lavable mains libres" loading="lazy" /></div>
+        <span class="fam-tag">Aquajex</span>
+        <h3 data-i18n="products.item3.title">Vadrouille lavable mains libres</h3>
+        <p data-i18n="products.item3.desc">Nettoyage des sols</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/brosse-a-dents.jpg" alt="Brosses à dents Extra Clean" loading="lazy" /></div>
+        <span class="fam-tag">Aquajex</span>
+        <h3 data-i18n="products.item4.title">Brosses à dents Extra Clean</h3>
+        <p data-i18n="products.item4.desc">Hygiène dentaire, lot de 3</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/serpilliere.jpg" alt="Serpillières multicolores" loading="lazy" /></div>
+        <span class="fam-tag">Les Cinq Frères</span>
+        <h3 data-i18n="products.item5.title">Serpillières multicolores</h3>
+        <p data-i18n="products.item5.desc">Entretien de la maison</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/aluminium.jpg" alt="Papier aluminium 100 m" loading="lazy" /></div>
+        <span class="fam-tag">Les Cinq Frères</span>
+        <h3 data-i18n="products.item6.title">Papier aluminium 100 m</h3>
+        <p data-i18n="products.item6.desc">Cuisine & conservation</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/tampons-jex.jpg" alt="Tampons à récurer Aquajex" loading="lazy" /></div>
+        <span class="fam-tag">Aquajex</span>
+        <h3 data-i18n="products.item7.title">Tampons à récurer Aquajex</h3>
+        <p data-i18n="products.item7.desc">Vaisselle, lot de 2</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="contact.html" class="product-card reveal">
+        <div class="thumb"><img src="images/products/featured/cuisson.jpg" alt="Papier cuisson réversible" loading="lazy" /></div>
+        <span class="fam-tag">Les Cinq Frères</span>
+        <h3 data-i18n="products.item8.title">Papier cuisson réversible 6 m</h3>
+        <p data-i18n="products.item8.desc">Cuisine, réutilisable</p>
+        <span class="cta"><span data-i18n="products.item.cta">Demander un tarif</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
     </div>
   </div>
 </section>
