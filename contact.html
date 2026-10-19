@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact — Aquajex 5F</title>
+<meta name="description" content="Contactez STE AQUAJEX 5F à Sfax pour une demande de catalogue, de tarif ou pour devenir revendeur." />
+<link rel="icon" href="images/logo_aquajex.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <img src="images/logo_aquajex.jpg" alt="Aquajex 5F" />
+      <span>AQUAJEX 5F<span class="sub">Sfax · Tunisie</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="nav.home">Accueil</a>
+      <a href="about.html" data-i18n="nav.about">À propos</a>
+      <a href="products.html" data-i18n="nav.products">Produits</a>
+      <a href="news.html" data-i18n="nav.news">Actualités</a>
+      <a href="contact.html" class="active" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button data-lang="fr">FR</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <a href="contact.html" class="btn btn-primary"><span class="full" data-i18n="nav.cta">Nous contacter</span></a>
+      <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom: 50px;">
+  <div class="container" style="grid-template-columns: 1fr; text-align:center;">
+    <div>
+      <span class="eyebrow" data-i18n="contact.eyebrow">Contact</span>
+      <h1 style="margin: 18px auto 16px; max-width: 760px;" data-i18n="contact.title">Parlons de votre point de vente</h1>
+      <p class="lead" style="margin:0 auto;" data-i18n="contact.lead">Une question, une demande de catalogue ou de tarif ? Notre équipe vous répond rapidement.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" style="padding-top:0;">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info">
+          <div class="info-row reveal">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.6-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.4-9.5 9-9.5 9z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="11" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div>
+              <h4 data-i18n="contact.addr.title">Adresse</h4>
+              <p>Route de Teniour KM 12, 3041 Sfax, Tunisie</p>
+            </div>
+          </div>
+          <div class="info-row reveal">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5c0 9 6 15 15 15l2-4-5-2-2 2c-2-1-4-3-5-5l2-2-2-5-4 1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4 data-i18n="contact.phone.title">Téléphone</h4>
+              <a href="tel:+21629940491">+216 29 94 04 91</a>
+            </div>
+          </div>
+          <div class="info-row reveal">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 4h18v16H3V4z" stroke="currentColor" stroke-width="1.6"/><path d="M3 5l9 7 9-7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Email</h4>
+              <a href="mailto:contact@aquajex5f.tn">contact@aquajex5f.tn</a>
+            </div>
+          </div>
+          <div class="info-row reveal">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h4 data-i18n="contact.hours.title">Horaires</h4>
+              <p data-i18n="contact.hours.text">Lun. – Ven. : 8h00 – 17h00</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-embed reveal">
+          <iframe src="https://www.google.com/maps?q=Route+de+Teniour+KM+12,+Sfax,+Tunisie&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localisation STE AQUAJEX 5F"></iframe>
+        </div>
+      </div>
+
+      <form id="contact-form" class="contact-form reveal">
+        <h3 style="margin-bottom:22px; font-size:19px;" data-i18n="contact.form.title">Envoyez-nous un message</h3>
+        <div class="form-row">
+          <div class="field">
+            <label data-i18n="contact.form.name">Nom complet</label>
+            <input type="text" name="name" required />
+          </div>
+          <div class="field">
+            <label data-i18n="contact.form.company">Société / point de vente</label>
+            <input type="text" name="company" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label data-i18n="contact.form.email">Email</label>
+            <input type="email" name="email" required />
+          </div>
+          <div class="field">
+            <label data-i18n="contact.form.phone">Téléphone</label>
+            <input type="tel" name="phone" />
+          </div>
+        </div>
+        <div class="field">
+          <label data-i18n="contact.form.subject">Sujet</label>
+          <select name="subject">
+            <option data-i18n="contact.form.subject.catalog">Demande de catalogue</option>
+            <option data-i18n="contact.form.subject.partner">Devenir revendeur</option>
+            <option data-i18n="contact.form.subject.other">Autre demande</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="contact.form.message">Message</label>
+          <textarea name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center;">
+          <span data-i18n="contact.form.submit">Envoyer le message</span>
+        </button>
+        <p style="font-size:12px; margin-top:14px;" data-i18n="contact.form.note">Ce formulaire ouvre votre messagerie avec le message pré-rempli, à destination directe de notre équipe.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="images/logo_aquajex.jpg" alt="Aquajex 5F" />
+          AQUAJEX 5F
+        </div>
+        <p data-i18n="footer.tagline">Deux marques, une même exigence de qualité — depuis Sfax, pour toute la Tunisie.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.nav">Navigation</h4>
+        <a href="index.html" data-i18n="nav.home">Accueil</a>
+        <a href="about.html" data-i18n="nav.about">À propos</a>
+        <a href="products.html" data-i18n="nav.products">Produits</a>
+        <a href="news.html" data-i18n="nav.news">Actualités</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.brands">Nos marques</h4>
+        <a href="products.html">Aquajex</a>
+        <a href="products.html">Les Cinq Frères</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.contact">Coordonnées</h4>
+        <p>Route de Teniour KM 12, 3041 Sfax, Tunisie</p>
+        <a href="tel:+21629940491">+216 29 94 04 91</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> STE AQUAJEX 5F — <span data-i18n="footer.rights">Tous droits réservés.</span></span>
+      <a href="https://malekjaber8.github.io/aquajex/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.55);">→ <span data-i18n="footer.internal">Espace professionnel</span></a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
