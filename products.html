@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=12" />
+<link rel="stylesheet" href="css/style.css?v=13" />
 </head>
 <body>
 
@@ -190,8 +190,13 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
+    <div class="brand-filter reveal" role="group" aria-label="Filtrer par marque">
+      <button type="button" class="brand-chip-filter active" data-brand="all" data-i18n="products.filter.all">Toutes les marques</button>
+      <button type="button" class="brand-chip-filter" data-brand="aquajex" data-i18n="products.filter.aquajex">Aquajex</button>
+      <button type="button" class="brand-chip-filter" data-brand="cinq-freres" data-i18n="products.filter.cinq">Les Cinq Frères</button>
+    </div>
     <div class="product-grid">
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="aquajex">
         <div class="thumb">
           <span class="badge-tag new" data-i18n="products.badge.new">Nouveau</span>
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
@@ -206,7 +211,7 @@
           <span data-i18n="products.item.cta">Demander un tarif</span>
         </a>
       </div>
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="cinq-freres">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/jex-inox.jpg" alt="Jex métallique inox" loading="lazy" />
@@ -220,7 +225,7 @@
           <span data-i18n="products.item.cta">Demander un tarif</span>
         </a>
       </div>
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="aquajex">
         <div class="thumb">
           <span class="badge-tag promo" data-i18n="products.badge.promo">Promo</span>
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
@@ -235,7 +240,7 @@
           <span data-i18n="products.item.cta">Demander un tarif</span>
         </a>
       </div>
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="aquajex">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/brosse-a-dents.jpg" alt="Brosses à dents Extra Clean" loading="lazy" />
@@ -249,7 +254,7 @@
           <span data-i18n="products.item.cta">Demander un tarif</span>
         </a>
       </div>
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="cinq-freres">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/serpilliere.jpg" alt="Serpillières multicolores" loading="lazy" />
@@ -263,7 +268,7 @@
           <span data-i18n="products.item.cta">Demander un tarif</span>
         </a>
       </div>
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="cinq-freres">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/aluminium.jpg" alt="Papier aluminium 100 m" loading="lazy" />
@@ -277,7 +282,7 @@
           <span data-i18n="products.item.cta">Demander un tarif</span>
         </a>
       </div>
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="aquajex">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/tampons-jex.jpg" alt="Tampons à récurer Aquajex" loading="lazy" />
@@ -291,7 +296,7 @@
           <span data-i18n="products.item.cta">Demander un tarif</span>
         </a>
       </div>
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-brand="cinq-freres">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/cuisson.jpg" alt="Papier cuisson réversible" loading="lazy" />
@@ -438,7 +443,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=12"></script>
+<script src="js/main.js?v=13"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

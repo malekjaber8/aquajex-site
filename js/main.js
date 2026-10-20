@@ -117,6 +117,9 @@ const DICT = {
     "products.item.cta": "Demander un tarif",
     "products.link.catalog": "Voir le catalogue complet",
     "products.link.more": "Voir plus",
+    "products.filter.all": "Toutes les marques",
+    "products.filter.aquajex": "Aquajex",
+    "products.filter.cinq": "Les Cinq Frères",
     "products.badge.new": "Nouveau",
     "products.badge.promo": "Promo",
     "products.promo.title": "Tout pour l'entretien de la maison",
@@ -293,6 +296,9 @@ const DICT = {
     "products.item.cta": "Request pricing",
     "products.link.catalog": "View the full catalogue",
     "products.link.more": "See more",
+    "products.filter.all": "All brands",
+    "products.filter.aquajex": "Aquajex",
+    "products.filter.cinq": "Les Cinq Frères",
     "products.badge.new": "New",
     "products.badge.promo": "Deal",
     "products.promo.title": "Everything for home cleaning",
@@ -535,25 +541,28 @@ function initContactForm() {
   });
 }
 
+function applyProductFilters(grid) {
+  if (!grid) return;
+  const needle = (grid.dataset.q || "").trim().toLowerCase();
+  const brand = grid.dataset.brand || "all";
+  grid.querySelectorAll(".product-card").forEach((card) => {
+    const matchesText = !needle || card.textContent.toLowerCase().includes(needle);
+    const matchesBrand = brand === "all" || card.dataset.brand === brand;
+    card.style.display = matchesText && matchesBrand ? "" : "none";
+  });
+}
+
 function initProductSearch() {
   const form = document.querySelector(".header-search");
   if (!form) return;
   const input = form.querySelector("input");
   const grid = document.querySelector(".product-grid");
 
-  function applyFilter(term) {
-    if (!grid) return;
-    const needle = term.trim().toLowerCase();
-    grid.querySelectorAll(".product-card").forEach((card) => {
-      const match = !needle || card.textContent.toLowerCase().includes(needle);
-      card.style.display = match ? "" : "none";
-    });
-  }
-
   form.addEventListener("submit", (e) => {
     if (!grid) return; // laisse le formulaire naviguer vers products.html?q=...
     e.preventDefault();
-    applyFilter(input.value);
+    grid.dataset.q = input.value;
+    applyProductFilters(grid);
     grid.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
@@ -561,9 +570,24 @@ function initProductSearch() {
     const q = new URLSearchParams(window.location.search).get("q");
     if (q) {
       input.value = q;
-      applyFilter(q);
+      grid.dataset.q = q;
+      applyProductFilters(grid);
     }
   }
+}
+
+function initBrandFilter() {
+  const grid = document.querySelector(".product-grid");
+  const chips = document.querySelectorAll(".brand-filter .brand-chip-filter");
+  if (!grid || !chips.length) return;
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      grid.dataset.brand = chip.dataset.brand;
+      applyProductFilters(grid);
+    });
+  });
 }
 
 function initWishlistButtons() {
@@ -580,5 +604,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initParticles();
   initCounters();
   initProductSearch();
+  initBrandFilter();
   initWishlistButtons();
 });
