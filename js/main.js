@@ -96,7 +96,7 @@ const DICT = {
     "products.hero.chip": "+100 références produits",
 
     "products.showcase.eyebrow": "Sélection",
-    "products.showcase.title": "Nos produits phares",
+    "products.showcase.title": "Tout le catalogue Aquajex 5F",
     "products.showcase.lead": "Un échantillon de nos références les plus demandées, en conditionnement prêt à vendre.",
     "products.item1.title": "Chiffons microfibre 2+1 gratuit",
     "products.item1.desc": "Super-absorbants, lot de 3",
@@ -297,7 +297,7 @@ const DICT = {
     "products.hero.chip": "100+ product references",
 
     "products.showcase.eyebrow": "Selection",
-    "products.showcase.title": "Our featured products",
+    "products.showcase.title": "The full Aquajex 5F catalogue",
     "products.showcase.lead": "A sample of our best-selling references, in ready-to-sell packaging.",
     "products.item1.title": "Microfibre cloths, buy 2 get 1 free",
     "products.item1.desc": "Super-absorbent, pack of 3",
@@ -585,193 +585,335 @@ function initContactForm() {
   });
 }
 
-function initCatalogFilters() {
+const BRAND_LOGOS = {
+  aquajex: "images/logo_aquajex.jpg",
+  "cinq-freres": "images/logo_cinq_freres.png",
+};
+const BRAND_NAMES = {
+  aquajex: "Aquajex",
+  "cinq-freres": "Les Cinq Frères",
+};
+const PAGE_SIZE = 12;
+
+function initCatalog() {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
 
-  const cards = Array.from(grid.querySelectorAll(".product-card"));
-  const originalOrder = cards.slice();
+  const brandListEl = document.getElementById("brand-filter-list");
+  const catListEl = document.getElementById("category-filter-list");
   const headerForm = document.querySelector(".header-search");
   const headerInput = headerForm ? headerForm.querySelector("input") : null;
   const sidebarInput = document.getElementById("sidebar-search-input");
-  const brandChecks = document.querySelectorAll('.filter-check input[data-filter="brand"]');
-  const catChecks = document.querySelectorAll('.filter-check input[data-filter="category"]');
   const brandPills = document.querySelectorAll(".brand-filter .brand-chip-filter");
   const sortSelect = document.getElementById("sort-select");
   const resetBtn = document.getElementById("reset-filters");
-  const countEl = document.getElementById("results-count");
+  const countNumEl = document.getElementById("results-count-num");
   const noResults = document.getElementById("no-results");
   const filtersToggle = document.getElementById("filters-toggle");
   const sidebar = document.getElementById("catalog-sidebar");
+  const pagination = document.getElementById("pagination");
+  const modal = document.getElementById("product-modal");
 
-  let searchTerm = "";
+  let products = [];
+  let brands = [];
+  let categories = [];
+  const state = {
+    search: new URLSearchParams(window.location.search).get("q") || "",
+    brands: new Set(),
+    categories: new Set(),
+    sort: "relevance",
+    page: 1,
+  };
 
-  function selectedValues(nodelist) {
-    return Array.from(nodelist)
-      .filter((c) => c.checked)
-      .map((c) => c.value);
+  function lang() {
+    return getLang();
+  }
+
+  function catLabel(p) {
+    return lang() === "en" ? p.categoryLabelEn : p.categoryLabelFr;
+  }
+
+  function buildFacets() {
+    const brandCount = new Map();
+    const catMap = new Map();
+    products.forEach((p) => {
+      brandCount.set(p.brand, (brandCount.get(p.brand) || 0) + 1);
+      if (!catMap.has(p.categorySlug)) {
+        catMap.set(p.categorySlug, { slug: p.categorySlug, brand: p.brand, count: 0 });
+      }
+      catMap.get(p.categorySlug).count++;
+    });
+    brands = Array.from(brandCount.entries()).map(([slug, count]) => ({ slug, count }));
+    categories = Array.from(catMap.values()).sort((a, b) => {
+      if (a.brand !== b.brand) return a.brand === "aquajex" ? -1 : 1;
+      const pa = products.find((p) => p.categorySlug === a.slug);
+      const pb = products.find((p) => p.categorySlug === b.slug);
+      return catLabel(pa).localeCompare(catLabel(pb));
+    });
+  }
+
+  function renderFacets() {
+    if (brandListEl) {
+      brandListEl.innerHTML = brands
+        .map(
+          (b) => `
+        <label class="filter-check">
+          <input type="checkbox" data-filter="brand" value="${b.slug}" ${state.brands.has(b.slug) ? "checked" : ""} />
+          <span>${BRAND_NAMES[b.slug] || b.slug}</span>
+          <em>${b.count}</em>
+        </label>`
+        )
+        .join("");
+    }
+    if (catListEl) {
+      catListEl.innerHTML = categories
+        .map((c) => {
+          const sample = products.find((p) => p.categorySlug === c.slug);
+          return `
+        <label class="filter-check">
+          <input type="checkbox" data-filter="category" value="${c.slug}" ${state.categories.has(c.slug) ? "checked" : ""} />
+          <span>${catLabel(sample)}</span>
+          <em>${c.count}</em>
+        </label>`;
+        })
+        .join("");
+    }
   }
 
   function syncPills() {
-    const brands = selectedValues(brandChecks);
     brandPills.forEach((p) => p.classList.remove("active"));
     let active = "all";
-    if (brands.length === 1) active = brands[0];
+    if (state.brands.size === 1) active = Array.from(state.brands)[0];
     const match = document.querySelector(`.brand-filter .brand-chip-filter[data-brand="${active}"]`);
     if (match) match.classList.add("active");
   }
 
-  function applyFilters() {
-    const needle = searchTerm.trim().toLowerCase();
-    const brands = selectedValues(brandChecks);
-    const cats = selectedValues(catChecks);
-    let visibleCount = 0;
-    cards.forEach((card) => {
-      const matchesText = !needle || card.textContent.toLowerCase().includes(needle);
-      const matchesBrand = brands.length === 0 || brands.includes(card.dataset.brand);
-      const matchesCat = cats.length === 0 || cats.includes(card.dataset.category);
-      const show = matchesText && matchesBrand && matchesCat;
-      card.style.display = show ? "" : "none";
-      if (show) visibleCount++;
+  function getFiltered() {
+    const needle = state.search.trim().toLowerCase();
+    return products.filter((p) => {
+      const matchesText =
+        !needle ||
+        p.name.toLowerCase().includes(needle) ||
+        p.ref.toLowerCase().includes(needle) ||
+        catLabel(p).toLowerCase().includes(needle);
+      const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);
+      const matchesCat = state.categories.size === 0 || state.categories.has(p.categorySlug);
+      return matchesText && matchesBrand && matchesCat;
     });
-    if (countEl) {
-      const strong = countEl.querySelector("strong");
-      if (strong) strong.textContent = visibleCount;
+  }
+
+  function getSorted(list) {
+    if (state.sort === "az") {
+      return list.slice().sort((a, b) => a.name.localeCompare(b.name));
     }
-    if (noResults) noResults.hidden = visibleCount !== 0;
+    if (state.sort === "za") {
+      return list.slice().sort((a, b) => b.name.localeCompare(a.name));
+    }
+    return list;
+  }
+
+  function cardHtml(p) {
+    return `
+      <div class="product-card reveal in" data-ref="${p.ref}">
+        <div class="thumb">
+          <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+          <img src="${p.img}" alt="${p.name}" loading="lazy" />
+        </div>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="${BRAND_LOGOS[p.brand]}" alt="" />
+          <span class="fam-tag">${BRAND_NAMES[p.brand]}</span>
+        </div>
+        <h3>${p.name}</h3>
+        <span class="cat-label">${catLabel(p)}</span>
+        <span class="ref">Réf. ${p.ref}</span>
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>`;
+  }
+
+  function renderPagination(totalPages) {
+    if (!pagination) return;
+    if (totalPages <= 1) {
+      pagination.innerHTML = "";
+      return;
+    }
+    const cur = state.page;
+    let pages = [];
+    const windowSize = 2;
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= cur - windowSize && i <= cur + windowSize)) {
+        pages.push(i);
+      }
+    }
+    let html = `<button type="button" data-page="${cur - 1}" ${cur === 1 ? "disabled" : ""} aria-label="Précédent">‹</button>`;
+    let prev = 0;
+    pages.forEach((p) => {
+      if (prev && p - prev > 1) html += `<span class="pg-ellipsis">…</span>`;
+      html += `<button type="button" data-page="${p}" class="${p === cur ? "active" : ""}">${p}</button>`;
+      prev = p;
+    });
+    html += `<button type="button" data-page="${cur + 1}" ${cur === totalPages ? "disabled" : ""} aria-label="Suivant">›</button>`;
+    pagination.innerHTML = html;
+  }
+
+  function render() {
+    renderFacets();
     syncPills();
+    const filtered = getSorted(getFiltered());
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if (state.page > totalPages) state.page = totalPages;
+    const start = (state.page - 1) * PAGE_SIZE;
+    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+    grid.innerHTML = pageItems.map(cardHtml).join("");
+    if (countNumEl) countNumEl.textContent = filtered.length;
+    if (noResults) noResults.hidden = filtered.length !== 0;
+    grid.style.display = filtered.length === 0 ? "none" : "";
+    renderPagination(totalPages);
   }
 
-  function applySort() {
-    const mode = sortSelect ? sortSelect.value : "relevance";
-    let ordered = originalOrder;
-    if (mode === "az" || mode === "za") {
-      ordered = cards.slice().sort((a, b) => {
-        const ta = (a.querySelector("h3")?.textContent || "").trim().toLowerCase();
-        const tb = (b.querySelector("h3")?.textContent || "").trim().toLowerCase();
-        return mode === "az" ? ta.localeCompare(tb) : tb.localeCompare(ta);
-      });
+  // Delegated events (grid is rebuilt on every render)
+  grid.addEventListener("click", (e) => {
+    const wishBtn = e.target.closest(".wish-btn");
+    if (wishBtn) {
+      wishBtn.classList.toggle("active");
+      return;
     }
-    ordered.forEach((card) => grid.appendChild(card));
-  }
+    const detailsBtn = e.target.closest(".btn-details");
+    if (detailsBtn) {
+      const card = detailsBtn.closest(".product-card");
+      const product = products.find((p) => p.ref === card.dataset.ref);
+      if (product) openModal(product);
+    }
+  });
 
-  if (headerForm && headerInput) {
-    const q = new URLSearchParams(window.location.search).get("q");
-    if (q) {
-      headerInput.value = q;
-      searchTerm = q;
-    }
-    headerForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      searchTerm = headerInput.value;
-      if (sidebarInput) sidebarInput.value = searchTerm;
-      applyFilters();
-      grid.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (pagination) {
+    pagination.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-page]");
+      if (!btn || btn.disabled) return;
+      state.page = parseInt(btn.dataset.page, 10);
+      render();
+      document.getElementById("produits")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 
-  if (sidebarInput) {
-    if (searchTerm) sidebarInput.value = searchTerm;
-    sidebarInput.addEventListener("input", () => {
-      searchTerm = sidebarInput.value;
-      if (headerInput) headerInput.value = searchTerm;
-      applyFilters();
-    });
+  function onFacetChange(e) {
+    const input = e.target.closest('input[data-filter]');
+    if (!input) return;
+    const set = input.dataset.filter === "brand" ? state.brands : state.categories;
+    if (input.checked) set.add(input.value);
+    else set.delete(input.value);
+    state.page = 1;
+    render();
   }
-
-  brandChecks.forEach((chk) => chk.addEventListener("change", applyFilters));
-  catChecks.forEach((chk) => chk.addEventListener("change", applyFilters));
+  if (brandListEl) brandListEl.addEventListener("change", onFacetChange);
+  if (catListEl) catListEl.addEventListener("change", onFacetChange);
 
   brandPills.forEach((pill) => {
     pill.addEventListener("click", () => {
       const brand = pill.dataset.brand;
-      brandChecks.forEach((chk) => {
-        chk.checked = brand !== "all" && chk.value === brand;
-      });
-      applyFilters();
+      state.brands.clear();
+      if (brand !== "all") state.brands.add(brand);
+      state.page = 1;
+      render();
     });
   });
 
-  if (sortSelect) sortSelect.addEventListener("change", applySort);
+  if (headerForm && headerInput) {
+    if (state.search) headerInput.value = state.search;
+    headerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      state.search = headerInput.value;
+      if (sidebarInput) sidebarInput.value = state.search;
+      state.page = 1;
+      render();
+      document.getElementById("produits")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  if (sidebarInput) {
+    if (state.search) sidebarInput.value = state.search;
+    sidebarInput.addEventListener("input", () => {
+      state.search = sidebarInput.value;
+      if (headerInput) headerInput.value = state.search;
+      state.page = 1;
+      render();
+    });
+  }
+
+  if (sortSelect) {
+    sortSelect.addEventListener("change", () => {
+      state.sort = sortSelect.value;
+      state.page = 1;
+      render();
+    });
+  }
 
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
-      searchTerm = "";
+      state.search = "";
+      state.brands.clear();
+      state.categories.clear();
+      state.sort = "relevance";
+      state.page = 1;
       if (headerInput) headerInput.value = "";
       if (sidebarInput) sidebarInput.value = "";
-      brandChecks.forEach((c) => (c.checked = false));
-      catChecks.forEach((c) => (c.checked = false));
       if (sortSelect) sortSelect.value = "relevance";
-      applySort();
-      applyFilters();
+      render();
     });
   }
 
   if (filtersToggle && sidebar) {
-    filtersToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-    });
+    filtersToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
   }
 
-  applyFilters();
-}
+  document.querySelectorAll(".lang-switch button").forEach((btn) => {
+    btn.addEventListener("click", () => render());
+  });
 
-function initProductModal() {
-  const modal = document.getElementById("product-modal");
-  if (!modal) return;
-  const imgEl = modal.querySelector(".pm-img img");
-  const brandLogoEl = modal.querySelector(".pm-brand img");
-  const brandNameEl = modal.querySelector(".pm-brand span");
-  const titleEl = modal.querySelector(".pm-title");
-  const catEl = modal.querySelector(".pm-cat");
-  const refEl = modal.querySelector(".pm-ref");
-  const descEl = modal.querySelector(".pm-desc");
-  const closeBtn = document.getElementById("pm-close");
-
-  function open(card) {
-    const img = card.querySelector(".thumb img");
-    const title = card.querySelector("h3");
-    const cat = card.querySelector(".cat-label");
-    const ref = card.querySelector(".ref");
-    const desc = card.querySelector("p");
-    const famTag = card.querySelector(".fam-tag");
-    const cardLogo = card.querySelector(".card-brand-logo");
-    if (imgEl && img) {
-      imgEl.src = img.src;
-      imgEl.alt = img.alt;
-    }
-    if (titleEl && title) titleEl.textContent = title.textContent;
-    if (catEl) catEl.textContent = cat ? cat.textContent : "";
-    if (refEl) refEl.textContent = ref ? ref.textContent : "";
-    if (descEl) descEl.textContent = desc ? desc.textContent : "";
-    if (brandNameEl && famTag) brandNameEl.textContent = famTag.textContent;
-    if (brandLogoEl && cardLogo) brandLogoEl.src = cardLogo.src;
+  // --- modal ---
+  function openModal(p) {
+    if (!modal) return;
+    modal.querySelector(".pm-img img").src = p.img;
+    modal.querySelector(".pm-img img").alt = p.name;
+    modal.querySelector(".pm-title").textContent = p.name;
+    modal.querySelector(".pm-cat").textContent = catLabel(p);
+    modal.querySelector(".pm-ref").textContent = `Réf. ${p.ref}`;
+    modal.querySelector(".pm-brand img").src = BRAND_LOGOS[p.brand];
+    modal.querySelector(".pm-brand span").textContent = BRAND_NAMES[p.brand];
     modal.classList.add("open");
     document.body.classList.add("modal-open");
   }
-
-  function close() {
+  function closeModal() {
+    if (!modal) return;
     modal.classList.remove("open");
     document.body.classList.remove("modal-open");
   }
+  if (modal) {
+    modal.querySelector("#pm-close")?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+  }
 
-  document.querySelectorAll(".product-card .btn-details").forEach((btn) => {
-    btn.addEventListener("click", () => open(btn.closest(".product-card")));
-  });
-
-  if (closeBtn) closeBtn.addEventListener("click", close);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) close();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
-  });
-}
-
-function initWishlistButtons() {
-  document.querySelectorAll(".wish-btn").forEach((btn) => {
-    btn.addEventListener("click", () => btn.classList.toggle("active"));
-  });
+  fetch("data/products.json")
+    .then((res) => res.json())
+    .then((data) => {
+      products = data;
+      buildFacets();
+      render();
+    })
+    .catch(() => {
+      if (noResults) {
+        noResults.hidden = false;
+        noResults.textContent = "Impossible de charger le catalogue pour le moment.";
+      }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -781,7 +923,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
   initParticles();
   initCounters();
-  initCatalogFilters();
-  initProductModal();
-  initWishlistButtons();
+  initCatalog();
 });

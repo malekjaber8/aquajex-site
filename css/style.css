@@ -1636,6 +1636,69 @@ section {
   border-radius: var(--radius);
 }
 
+.scrollable {
+  max-height: 272px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: var(--blue-soft2);
+  border-radius: 10px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 8px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled):not(.active) {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.pagination button.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pagination .pg-ellipsis {
+  color: var(--muted);
+  padding: 0 2px;
+}
+
 /* ---------- Catalog promo banner ---------- */
 
 .catalog-promo {
