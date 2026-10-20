@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=13" />
+<link rel="stylesheet" href="css/style.css?v=14" />
 </head>
 <body>
 
@@ -44,17 +44,17 @@
   </div>
 </header>
 
-<section class="hero hero-compact hero-with-visual">
+<section class="hero hero-compact hero-banner-hero">
   <canvas class="hero-canvas" id="hero-particles"></canvas>
   <div class="hero-blob-bg blob-a"></div>
   <div class="hero-blob-bg blob-b"></div>
   <div class="container">
-    <div>
-      <span class="eyebrow" data-i18n="products.eyebrow">Catalogue</span>
-      <h1 data-i18n="products.title">Deux marques, une large gamme de produits</h1>
+    <div class="hero-banner-text">
+      <span class="eyebrow" data-i18n="products.eyebrow">Notre catalogue</span>
+      <h1 data-i18n="products.title">Des produits de qualité pour un quotidien plus propre</h1>
       <p class="lead" data-i18n="products.lead">Un aperçu de nos familles de produits. Le catalogue complet, avec les prix professionnels, est réservé à nos revendeurs et commerciaux via notre outil interne — contactez-nous pour y accéder.</p>
       <div class="hero-actions">
-        <a href="#familles" class="btn btn-gold">
+        <a href="#produits" class="btn btn-gold">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span data-i18n="products.hero.cta1">Explorer les familles</span>
         </a>
@@ -64,119 +64,21 @@
         </a>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="panel-deco panel-deco-a"></div>
-      <div class="panel-deco panel-deco-b"></div>
-      <div class="product-hero-panel">
-        <img src="images/products/featured/chiffons-microfibre.jpg" alt="Produits Aquajex 5F" />
-      </div>
-      <span class="script-tag script-tag-panel script">Qualité<br />Performance<br />Durabilité</span>
-      <div class="brand-chip chip-bottom">
-        <img src="images/logo_aquajex.jpg" alt="Aquajex" />
-        <span data-i18n="products.hero.chip">+100 références produits</span>
-      </div>
-      <div class="hero-dots"><span class="active"></span><span></span><span></span></div>
+    <div class="hero-banner-image reveal">
+      <img src="images/products/featured/banner-produits.jpg" alt="Gamme de produits Aquajex 5F" />
     </div>
   </div>
 </section>
 
-<section class="mini-banner">
+<div class="breadcrumb-bar">
   <div class="container">
-    <div class="mini-banner-inner reveal">
-      <canvas class="hero-canvas"></canvas>
-      <div class="mb-deco mb-deco-a"></div>
-      <div class="mb-deco mb-deco-b"></div>
-      <span class="script-tag mini-banner-script script">Qualité<br />Performance<br />Durabilité</span>
-      <div class="mini-banner-photos">
-        <div class="tile tile-logo"><img src="images/logo_aquajex.jpg" alt="Aquajex" loading="lazy" /></div>
-      </div>
-    </div>
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="index.html" data-i18n="nav.home">Accueil</a>
+      <span>/</span>
+      <span data-i18n="nav.products">Produits</span>
+    </nav>
   </div>
-</section>
-
-<section id="familles">
-  <div class="container">
-    <div class="section-head-row reveal">
-      <div class="head-text">
-        <span class="eyebrow" data-i18n="products.cats.eyebrow">Familles de produits</span>
-        <h2 data-i18n="products.cats.title">Un assortiment pensé pour chaque rayon</h2>
-      </div>
-      <a href="contact.html" class="head-link">
-        <span data-i18n="products.link.catalog">Voir le catalogue complet</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-    <div class="family-strip">
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/microfibre.jpg" alt="Chiffons microfibre" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p1">Chiffons & gants microfibre</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/eponges-jex.jpg" alt="Éponges Jex" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p2">Éponges & tampons Jex</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/cellulose.jpg" alt="Éponges cellulose" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p3">Éponges cellulose</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/spontex.jpg" alt="Éponges Spontex" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p4">Éponges Spontex</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/plumeaux.jpg" alt="Plumeaux et balais microfibre" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p5">Plumeaux & balais</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/serpilliere.jpg" alt="Serpillières" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p6">Serpillières & chamoisines</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/aluminium.jpg" alt="Papier aluminium" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p7">Papier aluminium</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/cuisson.jpg" alt="Papier cuisson" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p8">Papier cuisson</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="#produits" class="family-item reveal">
-        <div class="avatar"><img src="images/products/hygiene.jpg" alt="Hygiène dentaire" loading="lazy" /></div>
-        <div class="fam-row">
-          <span data-i18n="products.p9">Hygiène dentaire</span>
-          <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-      <a href="contact.html" class="family-item more reveal">
-        <div class="more-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span data-i18n="products.link.more">Voir plus</span>
-      </a>
-    </div>
-  </div>
-</section>
+</div>
 
 <section class="alt" id="produits">
   <div class="container">
@@ -185,147 +87,293 @@
         <span class="eyebrow" data-i18n="products.showcase.eyebrow">Sélection</span>
         <h2 data-i18n="products.showcase.title">Nos produits phares</h2>
       </div>
-      <a href="contact.html" class="head-link">
-        <span data-i18n="products.link.catalog">Voir le catalogue complet</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
     </div>
-    <div class="brand-filter reveal" role="group" aria-label="Filtrer par marque">
-      <button type="button" class="brand-chip-filter active" data-brand="all" data-i18n="products.filter.all">Toutes les marques</button>
-      <button type="button" class="brand-chip-filter" data-brand="aquajex" data-i18n="products.filter.aquajex">Aquajex</button>
-      <button type="button" class="brand-chip-filter" data-brand="cinq-freres" data-i18n="products.filter.cinq">Les Cinq Frères</button>
-    </div>
-    <div class="product-grid">
-      <div class="product-card reveal" data-brand="aquajex">
+    <div class="catalog-layout">
+      <aside class="catalog-sidebar" id="catalog-sidebar">
+        <div class="sidebar-head">
+          <h3 data-i18n="products.filters.title">Filtres</h3>
+          <button type="button" class="reset-filters" id="reset-filters">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 15a8 8 0 0013.9 2.5M18.5 9A8 8 0 004.6 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span data-i18n="products.filters.reset">Réinitialiser</span>
+          </button>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label" data-i18n="products.filters.search">Recherche</span>
+          <div class="sidebar-search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input type="search" id="sidebar-search-input" data-i18n-placeholder="header.search" placeholder="Rechercher un produit..." />
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label" data-i18n="products.filters.brand">Marque</span>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="brand" value="aquajex" />
+            <span data-i18n="products.filter.aquajex">Aquajex</span>
+            <em>4</em>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="brand" value="cinq-freres" />
+            <span data-i18n="products.filter.cinq">Les Cinq Frères</span>
+            <em>4</em>
+          </label>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label" data-i18n="products.filters.category">Catégorie</span>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="microfibre" />
+            <span data-i18n="products.cat.microfibre">Chiffons & gants microfibre</span>
+            <em>1</em>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="eponges" />
+            <span data-i18n="products.cat.eponges">Éponges & tampons</span>
+            <em>2</em>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="accessoires" />
+            <span data-i18n="products.cat.accessoires">Accessoires de nettoyage</span>
+            <em>1</em>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="hygiene" />
+            <span data-i18n="products.cat.hygiene">Hygiène dentaire</span>
+            <em>1</em>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="serpilliere" />
+            <span data-i18n="products.cat.serpilliere">Serpillières & chamoisines</span>
+            <em>1</em>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="aluminium" />
+            <span data-i18n="products.cat.aluminium">Papier aluminium</span>
+            <em>1</em>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" data-filter="category" value="cuisson" />
+            <span data-i18n="products.cat.cuisson">Papier cuisson</span>
+            <em>1</em>
+          </label>
+        </div>
+        <a href="contact.html" class="sidebar-cta">
+          <div class="sidebar-cta-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <strong data-i18n="products.sidebar.cta.title">Vous ne trouvez pas le produit recherché ?</strong>
+          <span data-i18n="products.sidebar.cta.text">Notre équipe est à votre disposition pour vous aider.</span>
+          <span class="sidebar-cta-btn" data-i18n="products.sidebar.cta.btn">Contactez-nous →</span>
+        </a>
+      </aside>
+
+      <div class="catalog-main">
+        <div class="catalog-topbar">
+          <button type="button" class="filters-toggle" id="filters-toggle">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span data-i18n="products.filters.title">Filtres</span>
+          </button>
+          <span class="results-count" id="results-count"><strong>8</strong> <span data-i18n="products.results">produits trouvés</span></span>
+          <div class="catalog-controls">
+            <label class="sort-control">
+              <span data-i18n="products.sort.label">Trier par</span>
+              <select id="sort-select">
+                <option value="relevance" data-i18n="products.sort.relevance">Pertinence</option>
+                <option value="az" data-i18n="products.sort.az">Nom A–Z</option>
+                <option value="za" data-i18n="products.sort.za">Nom Z–A</option>
+              </select>
+            </label>
+            <div class="brand-filter" role="group" aria-label="Filtrer par marque">
+              <button type="button" class="brand-chip-filter active" data-brand="all" data-i18n="products.filter.all">Tous</button>
+              <button type="button" class="brand-chip-filter" data-brand="aquajex" data-i18n="products.filter.aquajex">Aquajex</button>
+              <button type="button" class="brand-chip-filter" data-brand="cinq-freres" data-i18n="products.filter.cinq">Les Cinq Frères</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-grid" id="product-grid">
+      <div class="product-card reveal" data-brand="aquajex" data-category="microfibre">
         <div class="thumb">
           <span class="badge-tag new" data-i18n="products.badge.new">Nouveau</span>
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/chiffons-microfibre.jpg" alt="Chiffons microfibre 2+1 gratuit" loading="lazy" />
         </div>
-        <span class="fam-tag">Aquajex</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_aquajex.jpg" alt="" />
+          <span class="fam-tag">Aquajex</span>
+        </div>
         <h3 data-i18n="products.item1.title">Chiffons microfibre 2+1 gratuit</h3>
+        <span class="cat-label" data-i18n="products.cat.microfibre">Chiffons & gants microfibre</span>
         <span class="ref">Réf. AQUA1</span>
         <p data-i18n="products.item1.desc">Super-absorbants, lot de 3</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
-        </a>
+        </button>
       </div>
-      <div class="product-card reveal" data-brand="cinq-freres">
+      <div class="product-card reveal" data-brand="cinq-freres" data-category="eponges">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/jex-inox.jpg" alt="Jex métallique inox" loading="lazy" />
         </div>
-        <span class="fam-tag">Les Cinq Frères</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_cinq_freres.png" alt="" />
+          <span class="fam-tag">Les Cinq Frères</span>
+        </div>
         <h3 data-i18n="products.item2.title">Jex métallique inox, lot de 3</h3>
+        <span class="cat-label" data-i18n="products.cat.eponges">Éponges & tampons</span>
         <span class="ref">Réf. AQUA 1-13</span>
         <p data-i18n="products.item2.desc">Tampons récurants cuisine</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
-        </a>
+        </button>
       </div>
-      <div class="product-card reveal" data-brand="aquajex">
+      <div class="product-card reveal" data-brand="aquajex" data-category="accessoires">
         <div class="thumb">
           <span class="badge-tag promo" data-i18n="products.badge.promo">Promo</span>
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/vadrouille.jpg" alt="Vadrouille lavable mains libres" loading="lazy" />
         </div>
-        <span class="fam-tag">Aquajex</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_aquajex.jpg" alt="" />
+          <span class="fam-tag">Aquajex</span>
+        </div>
         <h3 data-i18n="products.item3.title">Vadrouille lavable mains libres</h3>
+        <span class="cat-label" data-i18n="products.cat.accessoires">Accessoires de nettoyage</span>
         <span class="ref">Réf. AQUA 12-2</span>
         <p data-i18n="products.item3.desc">Nettoyage des sols</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
-        </a>
+        </button>
       </div>
-      <div class="product-card reveal" data-brand="aquajex">
+      <div class="product-card reveal" data-brand="aquajex" data-category="hygiene">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/brosse-a-dents.jpg" alt="Brosses à dents Extra Clean" loading="lazy" />
         </div>
-        <span class="fam-tag">Aquajex</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_aquajex.jpg" alt="" />
+          <span class="fam-tag">Aquajex</span>
+        </div>
         <h3 data-i18n="products.item4.title">Brosses à dents Extra Clean</h3>
+        <span class="cat-label" data-i18n="products.cat.hygiene">Hygiène dentaire</span>
         <span class="ref">Réf. AQUA 9-13</span>
         <p data-i18n="products.item4.desc">Hygiène dentaire, lot de 3</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
-        </a>
+        </button>
       </div>
-      <div class="product-card reveal" data-brand="cinq-freres">
+      <div class="product-card reveal" data-brand="cinq-freres" data-category="serpilliere">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/serpilliere.jpg" alt="Serpillières multicolores" loading="lazy" />
         </div>
-        <span class="fam-tag">Les Cinq Frères</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_cinq_freres.png" alt="" />
+          <span class="fam-tag">Les Cinq Frères</span>
+        </div>
         <h3 data-i18n="products.item5.title">Serpillières multicolores</h3>
+        <span class="cat-label" data-i18n="products.cat.serpilliere">Serpillières & chamoisines</span>
         <span class="ref">Réf. SRP0009</span>
         <p data-i18n="products.item5.desc">Entretien de la maison</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
-        </a>
+        </button>
       </div>
-      <div class="product-card reveal" data-brand="cinq-freres">
+      <div class="product-card reveal" data-brand="cinq-freres" data-category="aluminium">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/aluminium.jpg" alt="Papier aluminium 100 m" loading="lazy" />
         </div>
-        <span class="fam-tag">Les Cinq Frères</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_cinq_freres.png" alt="" />
+          <span class="fam-tag">Les Cinq Frères</span>
+        </div>
         <h3 data-i18n="products.item6.title">Papier aluminium 100 m</h3>
+        <span class="cat-label" data-i18n="products.cat.aluminium">Papier aluminium</span>
         <span class="ref">Réf. ALUM0002</span>
         <p data-i18n="products.item6.desc">Cuisine & conservation</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
-        </a>
+        </button>
       </div>
-      <div class="product-card reveal" data-brand="aquajex">
+      <div class="product-card reveal" data-brand="aquajex" data-category="eponges">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/tampons-jex.jpg" alt="Tampons à récurer Aquajex" loading="lazy" />
         </div>
-        <span class="fam-tag">Aquajex</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_aquajex.jpg" alt="" />
+          <span class="fam-tag">Aquajex</span>
+        </div>
         <h3 data-i18n="products.item7.title">Tampons à récurer Aquajex</h3>
+        <span class="cat-label" data-i18n="products.cat.eponges">Éponges & tampons</span>
         <span class="ref">Réf. DBF0019</span>
         <p data-i18n="products.item7.desc">Vaisselle, lot de 2</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
-        </a>
+        </button>
       </div>
-      <div class="product-card reveal" data-brand="cinq-freres">
+      <div class="product-card reveal" data-brand="cinq-freres" data-category="cuisson">
         <div class="thumb">
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="images/products/featured/cuisson.jpg" alt="Papier cuisson réversible" loading="lazy" />
         </div>
-        <span class="fam-tag">Les Cinq Frères</span>
+        <div class="card-brand-row">
+          <img class="card-brand-logo" src="images/logo_cinq_freres.png" alt="" />
+          <span class="fam-tag">Les Cinq Frères</span>
+        </div>
         <h3 data-i18n="products.item8.title">Papier cuisson réversible 6 m</h3>
+        <span class="cat-label" data-i18n="products.cat.cuisson">Papier cuisson</span>
         <span class="ref">Réf. CUIS0001</span>
         <p data-i18n="products.item8.desc">Cuisine, réutilisable</p>
-        <a href="contact.html" class="btn-cart">
+        <button type="button" class="btn-cart btn-details">
+          <span data-i18n="products.item.details">Voir les détails</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="products.item.cta">Demander un tarif</span>
+        </button>
+      </div>
+        </div>
+
+        <p class="no-results" id="no-results" hidden data-i18n="products.noresults">Aucun produit ne correspond à vos filtres.</p>
+
+        <a href="contact.html" class="catalog-promo reveal">
+          <div class="promo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+          <div class="promo-body">
+            <h3 data-i18n="products.promo.title">Tout pour l'entretien de la maison</h3>
+            <ul>
+              <li data-i18n="products.promo.li1">Qualité contrôlée à chaque étape</li>
+              <li data-i18n="products.promo.li2">Livraison rapide dans toute la Tunisie</li>
+              <li data-i18n="products.promo.li3">Large choix de références</li>
+            </ul>
+          </div>
+          <span class="btn-cart">
+            <span data-i18n="products.promo.cta">Découvrir la gamme</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
       </div>
-      <a href="contact.html" class="promo-card reveal">
-        <div class="promo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h3 data-i18n="products.promo.title">Tout pour l'entretien de la maison</h3>
-        <ul>
-          <li data-i18n="products.promo.li1">Qualité contrôlée à chaque étape</li>
-          <li data-i18n="products.promo.li2">Livraison rapide dans toute la Tunisie</li>
-          <li data-i18n="products.promo.li3">Large choix de références</li>
-        </ul>
-        <span class="btn-cart">
-          <span data-i18n="products.promo.cta">Découvrir la gamme</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
     </div>
   </div>
 </section>
+
+<div class="product-modal" id="product-modal">
+  <div class="pm-content">
+    <button type="button" class="pm-close" id="pm-close" aria-label="Fermer">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="pm-img"><img src="" alt="" /></div>
+    <div class="pm-body">
+      <div class="pm-brand"><img src="" alt="" /><span></span></div>
+      <h3 class="pm-title"></h3>
+      <span class="pm-cat"></span>
+      <span class="pm-ref"></span>
+      <p class="pm-desc"></p>
+      <a href="contact.html" class="btn-cart"><span data-i18n="products.item.cta">Demander un tarif</span></a>
+    </div>
+  </div>
+</div>
 
 <section>
   <div class="container">
@@ -401,7 +449,18 @@
         <div class="tile"><img src="images/products/featured/jex-inox.jpg" alt="Jex métallique inox" loading="lazy" /></div>
       </div>
       <div class="actions">
-        <a href="contact.html" class="btn btn-gold"><span data-i18n="products.cta.btn">Demander le catalogue</span></a>
+        <a href="https://wa.me/21629940491" target="_blank" rel="noopener" class="btn btn-whatsapp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20l1.4-4.9A8 8 0 1110 19.4L4 20z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <a href="tel:+21629940491" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 5c0 9 6 15 15 15l2-4-5-2-2 2c-2-1-4-3-5-5l2-2-2-5-4 1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span data-i18n="contact.phone.title">Téléphone</span>
+        </a>
+        <a href="mailto:contact@aquajex5f.tn" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 5h18v14H3V5z" stroke="currentColor" stroke-width="1.6"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span>Email</span>
+        </a>
       </div>
     </div>
   </div>
@@ -443,7 +502,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=13"></script>
+<script src="js/main.js?v=14"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -68,8 +68,8 @@ const DICT = {
     "about.v3.title": "Exigence qualité",
     "about.v3.text": "Un contrôle qualité à chaque étape, de la sélection des matières premières à la mise en carton.",
 
-    "products.eyebrow": "Catalogue",
-    "products.title": "Deux marques, une large gamme de produits",
+    "products.eyebrow": "Notre catalogue",
+    "products.title": "Des produits de qualité pour un quotidien plus propre",
     "products.lead": "Un aperçu de nos familles de produits. Le catalogue complet, avec les prix professionnels, est réservé à nos revendeurs et commerciaux via notre outil interne — contactez-nous pour y accéder.",
 
     "products.aquajex.tag": "Marque",
@@ -117,9 +117,31 @@ const DICT = {
     "products.item.cta": "Demander un tarif",
     "products.link.catalog": "Voir le catalogue complet",
     "products.link.more": "Voir plus",
-    "products.filter.all": "Toutes les marques",
+    "products.filter.all": "Tous",
     "products.filter.aquajex": "Aquajex",
     "products.filter.cinq": "Les Cinq Frères",
+    "products.filters.title": "Filtres",
+    "products.filters.reset": "Réinitialiser",
+    "products.filters.search": "Recherche",
+    "products.filters.brand": "Marque",
+    "products.filters.category": "Catégorie",
+    "products.results": "produits trouvés",
+    "products.sort.label": "Trier par",
+    "products.sort.relevance": "Pertinence",
+    "products.sort.az": "Nom A–Z",
+    "products.sort.za": "Nom Z–A",
+    "products.sidebar.cta.title": "Vous ne trouvez pas le produit recherché ?",
+    "products.sidebar.cta.text": "Notre équipe est à votre disposition pour vous aider.",
+    "products.sidebar.cta.btn": "Contactez-nous →",
+    "products.item.details": "Voir les détails",
+    "products.noresults": "Aucun produit ne correspond à vos filtres.",
+    "products.cat.microfibre": "Chiffons & gants microfibre",
+    "products.cat.eponges": "Éponges & tampons",
+    "products.cat.accessoires": "Accessoires de nettoyage",
+    "products.cat.hygiene": "Hygiène dentaire",
+    "products.cat.serpilliere": "Serpillières & chamoisines",
+    "products.cat.aluminium": "Papier aluminium",
+    "products.cat.cuisson": "Papier cuisson",
     "products.badge.new": "Nouveau",
     "products.badge.promo": "Promo",
     "products.promo.title": "Tout pour l'entretien de la maison",
@@ -247,8 +269,8 @@ const DICT = {
     "about.v3.title": "Quality standards",
     "about.v3.text": "Quality control at every step, from raw material selection to packing.",
 
-    "products.eyebrow": "Catalogue",
-    "products.title": "Two brands, a wide product range",
+    "products.eyebrow": "Our catalogue",
+    "products.title": "Quality products for a cleaner everyday",
     "products.lead": "A preview of our product families. The full catalogue, with professional pricing, is reserved for our retailers and sales reps through our internal tool — contact us for access.",
 
     "products.aquajex.tag": "Brand",
@@ -296,9 +318,31 @@ const DICT = {
     "products.item.cta": "Request pricing",
     "products.link.catalog": "View the full catalogue",
     "products.link.more": "See more",
-    "products.filter.all": "All brands",
+    "products.filter.all": "All",
     "products.filter.aquajex": "Aquajex",
     "products.filter.cinq": "Les Cinq Frères",
+    "products.filters.title": "Filters",
+    "products.filters.reset": "Reset",
+    "products.filters.search": "Search",
+    "products.filters.brand": "Brand",
+    "products.filters.category": "Category",
+    "products.results": "products found",
+    "products.sort.label": "Sort by",
+    "products.sort.relevance": "Relevance",
+    "products.sort.az": "Name A–Z",
+    "products.sort.za": "Name Z–A",
+    "products.sidebar.cta.title": "Can't find what you're looking for?",
+    "products.sidebar.cta.text": "Our team is on hand to help.",
+    "products.sidebar.cta.btn": "Contact us →",
+    "products.item.details": "View details",
+    "products.noresults": "No product matches your filters.",
+    "products.cat.microfibre": "Microfibre cloths & gloves",
+    "products.cat.eponges": "Sponges & scourers",
+    "products.cat.accessoires": "Cleaning accessories",
+    "products.cat.hygiene": "Dental care",
+    "products.cat.serpilliere": "Floor cloths & chamois",
+    "products.cat.aluminium": "Aluminium foil",
+    "products.cat.cuisson": "Baking paper",
     "products.badge.new": "New",
     "products.badge.promo": "Deal",
     "products.promo.title": "Everything for home cleaning",
@@ -541,52 +585,186 @@ function initContactForm() {
   });
 }
 
-function applyProductFilters(grid) {
+function initCatalogFilters() {
+  const grid = document.getElementById("product-grid");
   if (!grid) return;
-  const needle = (grid.dataset.q || "").trim().toLowerCase();
-  const brand = grid.dataset.brand || "all";
-  grid.querySelectorAll(".product-card").forEach((card) => {
-    const matchesText = !needle || card.textContent.toLowerCase().includes(needle);
-    const matchesBrand = brand === "all" || card.dataset.brand === brand;
-    card.style.display = matchesText && matchesBrand ? "" : "none";
-  });
-}
 
-function initProductSearch() {
-  const form = document.querySelector(".header-search");
-  if (!form) return;
-  const input = form.querySelector("input");
-  const grid = document.querySelector(".product-grid");
+  const cards = Array.from(grid.querySelectorAll(".product-card"));
+  const originalOrder = cards.slice();
+  const headerForm = document.querySelector(".header-search");
+  const headerInput = headerForm ? headerForm.querySelector("input") : null;
+  const sidebarInput = document.getElementById("sidebar-search-input");
+  const brandChecks = document.querySelectorAll('.filter-check input[data-filter="brand"]');
+  const catChecks = document.querySelectorAll('.filter-check input[data-filter="category"]');
+  const brandPills = document.querySelectorAll(".brand-filter .brand-chip-filter");
+  const sortSelect = document.getElementById("sort-select");
+  const resetBtn = document.getElementById("reset-filters");
+  const countEl = document.getElementById("results-count");
+  const noResults = document.getElementById("no-results");
+  const filtersToggle = document.getElementById("filters-toggle");
+  const sidebar = document.getElementById("catalog-sidebar");
 
-  form.addEventListener("submit", (e) => {
-    if (!grid) return; // laisse le formulaire naviguer vers products.html?q=...
-    e.preventDefault();
-    grid.dataset.q = input.value;
-    applyProductFilters(grid);
-    grid.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  let searchTerm = "";
 
-  if (grid) {
+  function selectedValues(nodelist) {
+    return Array.from(nodelist)
+      .filter((c) => c.checked)
+      .map((c) => c.value);
+  }
+
+  function syncPills() {
+    const brands = selectedValues(brandChecks);
+    brandPills.forEach((p) => p.classList.remove("active"));
+    let active = "all";
+    if (brands.length === 1) active = brands[0];
+    const match = document.querySelector(`.brand-filter .brand-chip-filter[data-brand="${active}"]`);
+    if (match) match.classList.add("active");
+  }
+
+  function applyFilters() {
+    const needle = searchTerm.trim().toLowerCase();
+    const brands = selectedValues(brandChecks);
+    const cats = selectedValues(catChecks);
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const matchesText = !needle || card.textContent.toLowerCase().includes(needle);
+      const matchesBrand = brands.length === 0 || brands.includes(card.dataset.brand);
+      const matchesCat = cats.length === 0 || cats.includes(card.dataset.category);
+      const show = matchesText && matchesBrand && matchesCat;
+      card.style.display = show ? "" : "none";
+      if (show) visibleCount++;
+    });
+    if (countEl) {
+      const strong = countEl.querySelector("strong");
+      if (strong) strong.textContent = visibleCount;
+    }
+    if (noResults) noResults.hidden = visibleCount !== 0;
+    syncPills();
+  }
+
+  function applySort() {
+    const mode = sortSelect ? sortSelect.value : "relevance";
+    let ordered = originalOrder;
+    if (mode === "az" || mode === "za") {
+      ordered = cards.slice().sort((a, b) => {
+        const ta = (a.querySelector("h3")?.textContent || "").trim().toLowerCase();
+        const tb = (b.querySelector("h3")?.textContent || "").trim().toLowerCase();
+        return mode === "az" ? ta.localeCompare(tb) : tb.localeCompare(ta);
+      });
+    }
+    ordered.forEach((card) => grid.appendChild(card));
+  }
+
+  if (headerForm && headerInput) {
     const q = new URLSearchParams(window.location.search).get("q");
     if (q) {
-      input.value = q;
-      grid.dataset.q = q;
-      applyProductFilters(grid);
+      headerInput.value = q;
+      searchTerm = q;
     }
+    headerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      searchTerm = headerInput.value;
+      if (sidebarInput) sidebarInput.value = searchTerm;
+      applyFilters();
+      grid.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
+
+  if (sidebarInput) {
+    if (searchTerm) sidebarInput.value = searchTerm;
+    sidebarInput.addEventListener("input", () => {
+      searchTerm = sidebarInput.value;
+      if (headerInput) headerInput.value = searchTerm;
+      applyFilters();
+    });
+  }
+
+  brandChecks.forEach((chk) => chk.addEventListener("change", applyFilters));
+  catChecks.forEach((chk) => chk.addEventListener("change", applyFilters));
+
+  brandPills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const brand = pill.dataset.brand;
+      brandChecks.forEach((chk) => {
+        chk.checked = brand !== "all" && chk.value === brand;
+      });
+      applyFilters();
+    });
+  });
+
+  if (sortSelect) sortSelect.addEventListener("change", applySort);
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      searchTerm = "";
+      if (headerInput) headerInput.value = "";
+      if (sidebarInput) sidebarInput.value = "";
+      brandChecks.forEach((c) => (c.checked = false));
+      catChecks.forEach((c) => (c.checked = false));
+      if (sortSelect) sortSelect.value = "relevance";
+      applySort();
+      applyFilters();
+    });
+  }
+
+  if (filtersToggle && sidebar) {
+    filtersToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+  }
+
+  applyFilters();
 }
 
-function initBrandFilter() {
-  const grid = document.querySelector(".product-grid");
-  const chips = document.querySelectorAll(".brand-filter .brand-chip-filter");
-  if (!grid || !chips.length) return;
-  chips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      chips.forEach((c) => c.classList.remove("active"));
-      chip.classList.add("active");
-      grid.dataset.brand = chip.dataset.brand;
-      applyProductFilters(grid);
-    });
+function initProductModal() {
+  const modal = document.getElementById("product-modal");
+  if (!modal) return;
+  const imgEl = modal.querySelector(".pm-img img");
+  const brandLogoEl = modal.querySelector(".pm-brand img");
+  const brandNameEl = modal.querySelector(".pm-brand span");
+  const titleEl = modal.querySelector(".pm-title");
+  const catEl = modal.querySelector(".pm-cat");
+  const refEl = modal.querySelector(".pm-ref");
+  const descEl = modal.querySelector(".pm-desc");
+  const closeBtn = document.getElementById("pm-close");
+
+  function open(card) {
+    const img = card.querySelector(".thumb img");
+    const title = card.querySelector("h3");
+    const cat = card.querySelector(".cat-label");
+    const ref = card.querySelector(".ref");
+    const desc = card.querySelector("p");
+    const famTag = card.querySelector(".fam-tag");
+    const cardLogo = card.querySelector(".card-brand-logo");
+    if (imgEl && img) {
+      imgEl.src = img.src;
+      imgEl.alt = img.alt;
+    }
+    if (titleEl && title) titleEl.textContent = title.textContent;
+    if (catEl) catEl.textContent = cat ? cat.textContent : "";
+    if (refEl) refEl.textContent = ref ? ref.textContent : "";
+    if (descEl) descEl.textContent = desc ? desc.textContent : "";
+    if (brandNameEl && famTag) brandNameEl.textContent = famTag.textContent;
+    if (brandLogoEl && cardLogo) brandLogoEl.src = cardLogo.src;
+    modal.classList.add("open");
+    document.body.classList.add("modal-open");
+  }
+
+  function close() {
+    modal.classList.remove("open");
+    document.body.classList.remove("modal-open");
+  }
+
+  document.querySelectorAll(".product-card .btn-details").forEach((btn) => {
+    btn.addEventListener("click", () => open(btn.closest(".product-card")));
+  });
+
+  if (closeBtn) closeBtn.addEventListener("click", close);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
   });
 }
 
@@ -603,7 +781,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
   initParticles();
   initCounters();
-  initProductSearch();
-  initBrandFilter();
+  initCatalogFilters();
+  initProductModal();
   initWishlistButtons();
 });
