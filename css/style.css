@@ -2138,6 +2138,29 @@ footer.site-footer {
     margin-left: auto;
     margin-right: auto;
   }
+
+  .hero h1 .accent {
+    white-space: normal;
+  }
+
+  .hero h1 .accent svg {
+    display: none;
+  }
+
+  .hero-actions,
+  .cta-band .actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .hero-actions .btn,
+  .cta-band .actions .btn {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
