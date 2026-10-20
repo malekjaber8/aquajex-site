@@ -1400,10 +1400,22 @@ section {
   justify-content: center;
 }
 
-.hero-with-banner .container {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+.hero-side-visual {
+  position: relative;
+  width: 100%;
+  min-height: 460px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-side-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% center;
 }
 
 .hero-banner-image {
@@ -2618,7 +2630,8 @@ footer.site-footer {
     grid-template-columns: 1fr;
   }
 
-  .hero-visual {
+  .hero-visual,
+  .hero-side-visual {
     min-height: 320px;
   }
 
