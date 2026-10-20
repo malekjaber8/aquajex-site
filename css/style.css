@@ -1400,6 +1400,12 @@ section {
   justify-content: center;
 }
 
+.hero-with-banner .container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .hero-side-visual {
   position: relative;
   width: 100%;
