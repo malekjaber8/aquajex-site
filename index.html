@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=40" />
+<link rel="stylesheet" href="css/style.css?v=41" />
 </head>
 <body>
 
@@ -45,7 +45,7 @@
 </header>
 
 <section class="hero hero-with-banner">
-  <div class="hero-bg-photo"><img src="images/hero-accueil.jpg?v=40" alt="" /></div>
+  <div class="hero-bg-photo"><img src="images/hero-accueil.jpg?v=41" alt="" /></div>
   <div class="hero-bg-overlay"></div>
   <div class="container">
     <div class="hero-copy">
@@ -150,31 +150,44 @@
 <section class="brands-section">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow" data-i18n="home.cats.eyebrow">Nos univers</span>
+      <div class="eyebrow-row">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow" data-i18n="home.cats.eyebrow">Nos univers</span>
+        <span class="eyebrow-line"></span>
+      </div>
       <h2 data-i18n="home.cats.title">Deux marques, un seul engagement qualité</h2>
+      <p class="lead" data-i18n="home.cats.lead">Deux marques complémentaires, une même exigence : vous offrir des produits d'entretien et d'hygiène fiables, efficaces et adaptés à votre quotidien.</p>
     </div>
     <div class="brand-showcase">
       <a href="products.html" class="brand-feature aquajex reveal">
-        <div class="brand-feature-logo">
-          <img src="images/logo_aquajex.jpg" alt="Aquajex" />
+        <div class="brand-feature-photo">
+          <img src="images/products/featured/brand-aquajex-photo.jpg" alt="Produits Aquajex" loading="lazy" />
+          <span class="brand-feature-badge">
+            <img src="images/logo_aquajex.jpg" alt="Aquajex" />
+          </span>
         </div>
         <div class="brand-feature-text">
           <h3 data-i18n="home.card1.title">Aquajex</h3>
           <p data-i18n="products.aquajex.text">Produits d'entretien et de nettoyage pour la maison : éponges, tampons abrasifs, articles de vaisselle et accessoires du quotidien.</p>
           <span class="brand-feature-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 19.5V5.5a2 2 0 012-2h5a2 2 0 012 2v16M4 19.5h16M13 19.5V5.5a2 2 0 012-2h3a2 2 0 012 2v14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span data-i18n="products.link.catalog">Voir le catalogue complet</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
         </div>
       </a>
       <a href="products.html" class="brand-feature cinq reveal">
-        <div class="brand-feature-logo">
-          <img src="images/logo_cinq_freres.png" alt="Les Cinq Frères" />
+        <div class="brand-feature-photo">
+          <img src="images/products/serpilliere.jpg" alt="Produits Les Cinq Frères" loading="lazy" />
+          <span class="brand-feature-badge">
+            <img src="images/logo_cinq_freres.png" alt="Les Cinq Frères" />
+          </span>
         </div>
         <div class="brand-feature-text">
           <h3 data-i18n="home.card2.title">Les Cinq Frères</h3>
           <p data-i18n="products.cinq.text">Gamme hygiène et maison : papier cuisson, articles ménagers et produits complémentaires pour la cuisine et l'entretien.</p>
           <span class="brand-feature-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 19.5V5.5a2 2 0 012-2h5a2 2 0 012 2v16M4 19.5h16M13 19.5V5.5a2 2 0 012-2h3a2 2 0 012 2v14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span data-i18n="products.link.catalog">Voir le catalogue complet</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
@@ -188,14 +201,19 @@
 <section class="cta-wrap">
   <div class="container">
     <div class="cta-band reveal">
-      <div>
-        <h2 data-i18n="home.cta.title">Envie de référencer nos produits ?</h2>
-        <p data-i18n="home.cta.text">Parlez-nous de votre point de vente ou de votre activité : nous vous proposons l'assortiment et les volumes adaptés.</p>
+      <div class="cta-text">
+        <div class="cta-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="cta-eyebrow" data-i18n="home.cta.eyebrow">Envie de référencer nos produits ?</span>
+        <h2 data-i18n="home.cta.title">Parlez-nous de votre point de vente ou de votre activité</h2>
+        <p data-i18n="home.cta.text">Nous vous proposons l'assortiment et les volumes adaptés à chaque point de vente.</p>
       </div>
       <div class="cta-photos">
         <div class="tile"><img src="images/products/featured/brosse-a-dents.jpg" alt="Brosses à dents Aquajex" loading="lazy" /></div>
-        <div class="tile"><img src="images/products/featured/serpilliere.jpg" alt="Serpillières Les Cinq Frères" loading="lazy" /></div>
+        <div class="tile"><img src="images/products/featured/cta-delivery.jpg" alt="Livraison Aquajex 5F" loading="lazy" /></div>
       </div>
+      <svg class="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div class="actions">
         <a href="contact.html" class="btn btn-gold"><span data-i18n="home.cta.btn">Contacter l'équipe commerciale</span></a>
       </div>
@@ -239,7 +257,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=40"></script>
+<script src="js/main.js?v=41"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

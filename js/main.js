@@ -42,9 +42,11 @@ const DICT = {
 
     "home.cats.eyebrow": "Nos univers",
     "home.cats.title": "Deux marques, un seul engagement qualité",
+    "home.cats.lead": "Deux marques complémentaires, une même exigence : vous offrir des produits d'entretien et d'hygiène fiables, efficaces et adaptés à votre quotidien.",
 
-    "home.cta.title": "Envie de référencer nos produits ?",
-    "home.cta.text": "Parlez-nous de votre point de vente ou de votre activité : nous vous proposons l'assortiment et les volumes adaptés.",
+    "home.cta.eyebrow": "Envie de référencer nos produits ?",
+    "home.cta.title": "Parlez-nous de votre point de vente ou de votre activité",
+    "home.cta.text": "Nous vous proposons l'assortiment et les volumes adaptés à chaque point de vente.",
     "home.cta.btn": "Contacter l'équipe commerciale",
 
     "about.eyebrow": "Notre histoire",
@@ -244,9 +246,11 @@ const DICT = {
 
     "home.cats.eyebrow": "Our ranges",
     "home.cats.title": "Two brands, one quality commitment",
+    "home.cats.lead": "Two complementary brands, one same standard: reliable, effective cleaning and hygiene products suited to everyday life.",
 
-    "home.cta.title": "Want to carry our products?",
-    "home.cta.text": "Tell us about your store or business — we'll suggest the right assortment and volumes.",
+    "home.cta.eyebrow": "Want to carry our products?",
+    "home.cta.title": "Tell us about your store or your business",
+    "home.cta.text": "We'll suggest the right assortment and volumes for every point of sale.",
     "home.cta.btn": "Talk to our sales team",
 
     "about.eyebrow": "Our story",
