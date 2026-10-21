@@ -1401,14 +1401,30 @@ section {
 }
 
 .hero.hero-with-banner {
-  min-height: 480px;
+  min-height: 380px;
+  padding: 40px 0;
   display: flex;
   align-items: center;
 }
 
 .hero-with-banner .container {
   display: block;
-  max-width: 600px;
+}
+
+.hero-copy {
+  max-width: 560px;
+}
+
+.hero-with-banner h1 {
+  margin: 14px 0 14px;
+}
+
+.hero-with-banner p.lead {
+  margin-bottom: 22px;
+}
+
+.hero-with-banner .hero-stats {
+  margin-top: 22px;
 }
 
 .hero-bg-photo {
