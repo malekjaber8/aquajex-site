@@ -874,32 +874,12 @@ section {
 .value-section {
   position: relative;
   overflow: hidden;
-  padding: 44px 0;
+  padding: 56px 0;
+  background: url("../images/section-bg-water.jpg") center top / cover no-repeat;
 }
 
 .value-section .deco-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(4px);
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.value-section .deco-1 {
-  top: -60px;
-  left: -80px;
-  width: 170px;
-  height: 170px;
-  background: radial-gradient(circle, var(--blue-soft), transparent 72%);
-}
-
-.value-section .deco-2 {
-  bottom: -90px;
-  right: -70px;
-  width: 190px;
-  height: 190px;
-  background: radial-gradient(circle, #d9f7f3, transparent 72%);
+  display: none;
 }
 
 .why-split {
