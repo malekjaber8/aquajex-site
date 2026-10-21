@@ -120,8 +120,9 @@ img {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  column-gap: 28px;
+  column-gap: 24px;
   height: 80px;
+  max-width: 1400px;
 }
 
 .brand {
@@ -132,17 +133,21 @@ img {
   font-weight: 800;
   font-size: 19px;
   color: #fff;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand img {
   height: 42px;
   width: auto;
+  flex-shrink: 0;
   border-radius: 9px;
   box-shadow: 0 0 0 2px #fff, 0 6px 16px -6px rgba(0, 0, 0, 0.35);
 }
 
 .brand span.sub {
   display: block;
+  white-space: nowrap;
   font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 10.5px;
@@ -188,6 +193,7 @@ nav.main-nav a.active::after {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex-shrink: 0;
 }
 
 .lang-switch {
