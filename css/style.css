@@ -1401,40 +1401,32 @@ section {
 }
 
 .hero.hero-with-banner {
-  min-height: 480px;
-  display: flex;
-  align-items: center;
+  min-height: 0;
+  padding: 64px 0;
 }
 
 .hero-with-banner .container {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.hero-text {
+  flex: 1 1 480px;
+  max-width: 560px;
+}
+
+.hero-visual-banner {
+  flex: 1 1 420px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-visual-banner img {
   display: block;
-  max-width: 600px;
-}
-
-.hero-bg-photo {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero-bg-photo img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 100% center;
-}
-
-.hero-bg-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    90deg,
-    #fff 0%,
-    #fff 68%,
-    rgba(255, 255, 255, 0.6) 78%,
-    rgba(255, 255, 255, 0) 94%
-  );
+  height: auto;
 }
 
 .hero-side-visual {
@@ -2684,10 +2676,17 @@ footer.site-footer {
 
   .hero.hero-with-banner {
     min-height: 0;
+    padding: 40px 0;
   }
 
-  .hero-bg-overlay {
-    background: rgba(255, 255, 255, 0.82);
+  .hero-with-banner .container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+  }
+
+  .hero-text {
+    max-width: none;
   }
 
   .about-figure {
