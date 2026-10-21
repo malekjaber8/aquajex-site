@@ -1412,7 +1412,7 @@ section {
 }
 
 .hero-copy {
-  max-width: 560px;
+  max-width: 480px;
 }
 
 .hero-with-banner h1 {
@@ -1448,9 +1448,9 @@ section {
   background: linear-gradient(
     90deg,
     #fff 0%,
-    #fff 55%,
-    rgba(255, 255, 255, 0.55) 68%,
-    rgba(255, 255, 255, 0) 90%
+    #fff 40%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(255, 255, 255, 0) 62%
   );
 }
 
