@@ -30,7 +30,8 @@ const DICT = {
     "home.card2.sub": "Hygiène & maison",
 
     "home.values.eyebrow": "Pourquoi Aquajex 5F",
-    "home.values.title": "Une qualité constante, une disponibilité totale",
+    "home.values.title1": "Une qualité constante,",
+    "home.values.title2": "une disponibilité totale.",
     "home.values.lead": "Depuis Sfax, nous fabriquons et sélectionnons des produits fiables, livrés rapidement à nos revendeurs et partenaires.",
     "home.v1.title": "Qualité contrôlée",
     "home.v1.text": "Chaque référence est vérifiée avant expédition, pour une qualité constante d'un carton à l'autre.",
@@ -231,7 +232,8 @@ const DICT = {
     "home.card2.sub": "Home & hygiene",
 
     "home.values.eyebrow": "Why Aquajex 5F",
-    "home.values.title": "Consistent quality, full availability",
+    "home.values.title1": "Consistent quality,",
+    "home.values.title2": "full availability.",
     "home.values.lead": "From Sfax, we manufacture and select reliable products, delivered quickly to our retailers and partners.",
     "home.v1.title": "Controlled quality",
     "home.v1.text": "Every reference is checked before shipping, for consistent quality from one batch to the next.",

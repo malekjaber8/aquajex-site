@@ -874,6 +874,7 @@ section {
 .value-section {
   position: relative;
   overflow: hidden;
+  padding: 44px 0;
 }
 
 .value-section .deco-blob {
@@ -882,43 +883,51 @@ section {
   filter: blur(4px);
   z-index: 0;
   pointer-events: none;
+  opacity: 0.5;
 }
 
 .value-section .deco-1 {
-  top: -120px;
-  left: -100px;
-  width: 340px;
-  height: 340px;
-  background: radial-gradient(circle, var(--blue-soft), transparent 70%);
-  animation: blob-morph 13s ease-in-out infinite alternate;
+  top: -60px;
+  left: -80px;
+  width: 170px;
+  height: 170px;
+  background: radial-gradient(circle, var(--blue-soft), transparent 72%);
 }
 
 .value-section .deco-2 {
-  bottom: -160px;
-  right: -120px;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, #e4fbf7, transparent 70%);
-  animation: blob-morph 16s ease-in-out infinite alternate-reverse;
+  bottom: -90px;
+  right: -70px;
+  width: 190px;
+  height: 190px;
+  background: radial-gradient(circle, #d9f7f3, transparent 72%);
 }
 
 .why-split {
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
-  gap: 60px;
+  gap: 56px;
   align-items: center;
   position: relative;
   z-index: 1;
 }
 
+.hl-blue {
+  color: var(--blue);
+}
+
+/* ---------- Product photo composition ---------- */
+
 .why-media {
   position: relative;
-  min-height: 380px;
+  padding-bottom: 34px;
+  padding-left: 18px;
 }
 
 .why-photo {
-  position: absolute;
   overflow: hidden;
+  border-radius: 16px;
+  background: var(--blue-soft);
+  box-shadow: 0 18px 34px -20px rgba(16, 43, 70, 0.3);
 }
 
 .why-photo img {
@@ -929,100 +938,108 @@ section {
 }
 
 .why-photo-1 {
-  top: 0;
-  left: 0;
-  width: 72%;
-  height: 72%;
-  border-radius: 46% 54% 62% 38% / 48% 42% 58% 52%;
-  box-shadow: var(--shadow-blue);
-  animation: blob-morph 14s ease-in-out infinite alternate;
+  width: 76%;
+  aspect-ratio: 4 / 5;
 }
 
 .why-photo-2 {
-  bottom: 0;
+  position: absolute;
   right: 0;
-  width: 54%;
-  height: 54%;
-  border-radius: 58% 42% 40% 60% / 44% 56% 44% 56%;
-  border: 6px solid #fff;
-  box-shadow: var(--shadow);
+  bottom: 0;
+  width: 46%;
+  aspect-ratio: 1 / 1;
+  border: 5px solid #fff;
   z-index: 1;
-  animation: blob-morph 11s ease-in-out infinite alternate-reverse;
 }
 
 .why-badge {
   position: absolute;
-  left: 2%;
-  bottom: 4%;
+  left: -18px;
+  top: 18px;
   z-index: 2;
   background: #fff;
-  border-radius: 18px;
-  padding: 14px 22px;
-  box-shadow: var(--shadow);
-  text-align: center;
-  line-height: 1.15;
+  border-radius: 12px;
+  padding: 9px 16px;
+  box-shadow: 0 12px 26px -16px rgba(16, 43, 70, 0.32);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  border-left: 3px solid var(--teal);
 }
 
 .why-badge strong {
-  display: block;
   font-family: "Poppins", sans-serif;
-  font-size: 24px;
+  font-size: 19px;
   font-weight: 800;
   color: var(--blue-deep);
 }
 
 .why-badge span {
-  display: block;
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--muted);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
+/* ---------- Content column ---------- */
+
 .why-content .section-head {
   text-align: left;
-  margin: 0 0 30px;
+  margin: 0 0 22px;
   max-width: none;
+}
+
+.why-content .section-head h2 {
+  font-size: 29px;
+  font-weight: 700;
+  margin: 12px 0 10px;
+}
+
+.why-content .section-head p.lead {
+  max-width: 440px;
+  font-size: 15.5px;
+  line-height: 1.6;
 }
 
 .why-list {
   display: grid;
-  gap: 24px;
+  gap: 0;
 }
 
 .why-item {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   align-items: flex-start;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.why-item:first-child {
+  border-top: none;
+  padding-top: 0;
 }
 
 .why-icon {
   flex-shrink: 0;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--blue-soft);
-  color: var(--blue-deep);
-  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
-}
-
-.why-item:hover .why-icon {
-  background: var(--blue);
-  color: #fff;
-  transform: rotate(-8deg) scale(1.08);
+  color: var(--teal);
 }
 
 .why-item h3 {
-  font-size: 16.5px;
-  margin-bottom: 4px;
+  font-size: 15.5px;
+  font-weight: 600;
+  margin-bottom: 3px;
 }
 
 .why-item p {
-  font-size: 14px;
+  font-size: 13.5px;
   margin: 0;
 }
 
