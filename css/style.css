@@ -1469,6 +1469,7 @@ section {
 
 .hero-copy {
   max-width: 480px;
+  margin-left: -18px;
 }
 
 .hero-with-banner h1 {
