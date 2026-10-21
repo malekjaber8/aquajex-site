@@ -1465,9 +1465,6 @@ section {
 
 .hero-with-banner .container {
   display: block;
-  max-width: none;
-  margin-left: 0;
-  padding-left: 36px;
 }
 
 .hero-copy {
@@ -2826,10 +2823,6 @@ footer.site-footer {
 
   .hero.hero-with-banner {
     min-height: 0;
-  }
-
-  .hero-with-banner .container {
-    padding-left: 20px;
   }
 
   .hero-bg-overlay {
