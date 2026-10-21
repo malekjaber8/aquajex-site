@@ -1465,6 +1465,7 @@ section {
 
 .hero-with-banner .container {
   display: block;
+  width: 100%;
 }
 
 .hero-copy {
