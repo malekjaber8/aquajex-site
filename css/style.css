@@ -1401,7 +1401,7 @@ section {
 }
 
 .hero.hero-with-banner {
-  min-height: 560px;
+  min-height: 480px;
   display: flex;
   align-items: center;
 }
@@ -1421,7 +1421,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 90% center;
+  object-position: 100% center;
 }
 
 .hero-bg-overlay {
@@ -1431,10 +1431,9 @@ section {
   background: linear-gradient(
     90deg,
     #fff 0%,
-    #fff 44%,
-    rgba(255, 255, 255, 0.88) 54%,
-    rgba(255, 255, 255, 0.2) 70%,
-    rgba(255, 255, 255, 0) 85%
+    #fff 68%,
+    rgba(255, 255, 255, 0.6) 78%,
+    rgba(255, 255, 255, 0) 94%
   );
 }
 
