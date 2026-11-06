@@ -168,6 +168,9 @@ const DICT = {
     "news.eyebrow": "Actualités",
     "news.title": "Nouveautés et temps forts Aquajex 5F",
     "news.lead": "Nouvelles références, promotions et actualités de nos deux marques.",
+    "news.products.eyebrow": "Nouveaux produits",
+    "news.products.title": "Les dernières références ajoutées à notre catalogue",
+    "news.products.lead": "Découvrez les produits récemment intégrés aux gammes Aquajex et Les Cinq Frères.",
     "news.n1.badge": "Nouveauté",
     "news.n1.title": "Nouvelle gamme d'éponges cellulose",
     "news.n1.text": "Une nouvelle génération d'éponges cellulose, plus absorbantes et plus résistantes, disponible chez nos revendeurs.",
@@ -375,6 +378,9 @@ const DICT = {
     "news.eyebrow": "News",
     "news.title": "Aquajex 5F news & highlights",
     "news.lead": "New references, promotions and news from our two brands.",
+    "news.products.eyebrow": "New products",
+    "news.products.title": "The latest additions to our catalogue",
+    "news.products.lead": "Discover the products recently added to the Aquajex and Les Cinq Frères ranges.",
     "news.n1.badge": "New",
     "news.n1.title": "New cellulose sponge range",
     "news.n1.text": "A new generation of cellulose sponges, more absorbent and more durable, now available at our retailers.",
@@ -768,6 +774,7 @@ function initCatalog() {
     return `
       <div class="product-card reveal in" data-ref="${p.ref}">
         <div class="thumb">
+          ${p.nouveaute ? `<span class="badge-tag new">${lang() === "en" ? "New" : "Nouveau"}</span>` : ""}
           <button type="button" class="wish-btn" aria-label="Favoris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.5-8.6C.7 8 2.4 4.5 6 4c2-.3 3.6.6 6 3 2.4-2.4 4-3.3 6-3 3.6.5 5.3 4 3.5 7.4C19 15.7 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
           <img src="${p.img}" alt="${p.name}" loading="lazy" />
         </div>
@@ -968,6 +975,57 @@ function initCatalog() {
     });
 }
 
+// Grille "Nouveaux produits" de la page Actualités : mêmes produits que le
+// catalogue, filtrés sur le flag `nouveaute` (voir data/products.json),
+// réglé d'après le statut "Nouveauté" déjà choisi dans l'application pour
+// ces articles — pas de contenu inventé, uniquement les vraies fiches.
+function initNouveautes() {
+  const grid = document.getElementById("nouveautes-grid");
+  if (!grid) return;
+
+  fetch("data/products.json")
+    .then((r) => r.json())
+    .then((data) => {
+      const items = data.filter((p) => p.nouveaute);
+      const section = grid.closest("section");
+      if (items.length === 0) {
+        if (section) section.hidden = true;
+        return;
+      }
+
+      const render = () => {
+        const lang = getLang();
+        grid.innerHTML = items
+          .map(
+            (p) => `
+          <a class="product-card reveal in" href="products.html?q=${encodeURIComponent(p.ref)}">
+            <div class="thumb">
+              <span class="badge-tag new">${lang === "en" ? "New" : "Nouveau"}</span>
+              <img src="${p.img}" alt="${p.name}" loading="lazy" />
+            </div>
+            <div class="card-brand-row">
+              <img class="card-brand-logo" src="${BRAND_LOGOS[p.brand]}" alt="" />
+              <span class="fam-tag">${BRAND_NAMES[p.brand]}</span>
+            </div>
+            <h3>${p.name}</h3>
+            <span class="cat-label">${lang === "en" ? p.categoryLabelEn : p.categoryLabelFr}</span>
+            <span class="ref">Réf. ${p.ref}</span>
+          </a>`
+          )
+          .join("");
+      };
+
+      render();
+      document.querySelectorAll(".lang-switch button").forEach((btn) => {
+        btn.addEventListener("click", render);
+      });
+    })
+    .catch(() => {
+      const section = grid.closest("section");
+      if (section) section.hidden = true;
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initLangSwitch();
   initMobileNav();
@@ -976,4 +1034,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initParticles();
   initCounters();
   initCatalog();
+  initNouveautes();
 });
