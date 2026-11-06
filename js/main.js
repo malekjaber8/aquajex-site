@@ -199,6 +199,10 @@ const DICT = {
     "cart.empty": "Votre panier est vide.",
     "cart.add": "Ajouter au panier",
     "cart.checkout.title": "Vos coordonnées",
+    "cart.form.type": "Vous êtes",
+    "cart.form.type.individual": "Particulier",
+    "cart.form.type.company": "Société",
+    "cart.form.companyname": "Nom de la société",
     "cart.form.lastname": "Nom",
     "cart.form.firstname": "Prénom",
     "cart.form.phone": "Téléphone",
@@ -413,6 +417,10 @@ const DICT = {
     "cart.empty": "Your cart is empty.",
     "cart.add": "Add to cart",
     "cart.checkout.title": "Your details",
+    "cart.form.type": "You are",
+    "cart.form.type.individual": "Individual",
+    "cart.form.type.company": "Company",
+    "cart.form.companyname": "Company name",
     "cart.form.lastname": "Last name",
     "cart.form.firstname": "First name",
     "cart.form.phone": "Phone",
@@ -817,6 +825,24 @@ function initCart() {
     }
   });
 
+  const clientTypeSelect = document.getElementById("cart-client-type");
+  const companyField = document.getElementById("cart-company-field");
+  const companyInput = companyField ? companyField.querySelector('input[name="societe"]') : null;
+  function syncCompanyField() {
+    if (!clientTypeSelect || !companyField) return;
+    const isCompany = clientTypeSelect.value === "societe";
+    companyField.hidden = !isCompany;
+    if (companyInput) {
+      if (isCompany) companyInput.setAttribute("required", "true");
+      else {
+        companyInput.removeAttribute("required");
+        companyInput.value = "";
+      }
+    }
+  }
+  clientTypeSelect?.addEventListener("change", syncCompanyField);
+  syncCompanyField();
+
   if (form) {
     const statusEl = document.getElementById("cart-form-status");
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -831,8 +857,11 @@ function initCart() {
       const cart = getCart();
       if (cart.length === 0) return;
       const data = new FormData(form);
+      const isCompany = data.get("clientType") === "societe";
       const lines = [
         "🛒 Nouvelle commande depuis le site web",
+        `Type : ${isCompany ? "Société" : "Particulier"}`,
+        ...(isCompany ? [`Société : ${data.get("societe") || "—"}`] : []),
         `Nom : ${data.get("nom") || "—"}`,
         `Prénom : ${data.get("prenom") || "—"}`,
         `Téléphone : ${data.get("phone") || "—"}`,
@@ -862,6 +891,7 @@ function initCart() {
         if (!res.ok) throw new Error(`telegram status ${res.status}`);
         setStatus("cart.form.success", "Commande envoyée ! Nous vous recontacterons rapidement.", "#0b8f5a");
         form.reset();
+        syncCompanyField();
         saveCart([]);
         renderCartItems();
       } catch (err) {
