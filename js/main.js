@@ -197,7 +197,10 @@ const DICT = {
     "contact.form.subject.other": "Autre demande",
     "contact.form.message": "Message",
     "contact.form.submit": "Envoyer le message",
-    "contact.form.note": "Ce formulaire ouvre votre messagerie avec le message pré-rempli, à destination directe de notre équipe.",
+    "contact.form.note": "Votre message est envoyé directement à notre équipe.",
+    "contact.form.sending": "Envoi en cours…",
+    "contact.form.success": "Message envoyé ! Nous vous recontacterons rapidement.",
+    "contact.form.error": "Échec de l'envoi. Réessayez ou contactez-nous par téléphone.",
 
     "footer.tagline": "Deux marques, une même exigence de qualité — depuis Sfax, pour toute la Tunisie.",
     "footer.nav": "Navigation",
@@ -401,7 +404,10 @@ const DICT = {
     "contact.form.subject.other": "Other request",
     "contact.form.message": "Message",
     "contact.form.submit": "Send message",
-    "contact.form.note": "This form opens your email app with the message pre-filled, sent directly to our team.",
+    "contact.form.note": "Your message is sent directly to our team.",
+    "contact.form.sending": "Sending…",
+    "contact.form.success": "Message sent! We'll get back to you shortly.",
+    "contact.form.error": "Couldn't send it. Please try again or call us.",
 
     "footer.tagline": "Two brands, one quality standard — from Sfax, for all of Tunisia.",
     "footer.nav": "Navigation",
@@ -568,26 +574,66 @@ function initReveal() {
   items.forEach((el) => obs.observe(el));
 }
 
+// Même bot Telegram que l'application (lib/services/telegram_service.dart) :
+// notifie directement le groupe "Aquajex application", sans backend, pour
+// rester cohérent avec le choix déjà fait et accepté côté app (voir mémoire
+// aquajex-telegram-bot). Le jeton est donc public, comme dans le build web
+// de l'app elle-même — même compromis assumé.
+const CONTACT_TELEGRAM_BOT_TOKEN = "8870039849:AAFFk52-hzmfXNBpmoD6m1Umh8qY-zM0lpI";
+const CONTACT_TELEGRAM_CHAT_ID = "-5317979459";
+
 function initContactForm() {
   const form = document.getElementById("contact-form");
   if (!form) return;
-  form.addEventListener("submit", (e) => {
+  const statusEl = document.getElementById("contact-form-status");
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  const setStatus = (key, fallback, color) => {
+    if (!statusEl) return;
+    statusEl.textContent = DICT[getLang()]?.[key] || fallback;
+    statusEl.style.color = color;
+  };
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const data = new FormData(form);
     const lines = [
-      `Nom: ${data.get("name") || ""}`,
-      `Société: ${data.get("company") || ""}`,
-      `Email: ${data.get("email") || ""}`,
-      `Téléphone: ${data.get("phone") || ""}`,
-      `Sujet: ${data.get("subject") || ""}`,
+      "📩 Nouveau message depuis le site web",
+      `Nom : ${data.get("name") || "—"}`,
+      `Société : ${data.get("company") || "—"}`,
+      `Email : ${data.get("email") || "—"}`,
+      `Téléphone : ${data.get("phone") || "—"}`,
+      `Sujet : ${data.get("subject") || "—"}`,
       "",
       data.get("message") || "",
     ];
-    const subject = encodeURIComponent(
-      `[Site web] ${data.get("subject") || "Nouveau message"} — ${data.get("name") || ""}`
-    );
-    const body = encodeURIComponent(lines.join("\n"));
-    window.location.href = `mailto:contact@aquajex5f.tn?subject=${subject}&body=${body}`;
+    const text = lines.join("\n");
+
+    submitBtn?.setAttribute("disabled", "true");
+    setStatus("contact.form.sending", "Envoi en cours…", "#5b6b80");
+
+    try {
+      const res = await fetch(
+        `https://api.telegram.org/bot${CONTACT_TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ chat_id: CONTACT_TELEGRAM_CHAT_ID, text }),
+        }
+      );
+      if (!res.ok) throw new Error(`telegram status ${res.status}`);
+      setStatus("contact.form.success", "Message envoyé ! Nous vous recontacterons rapidement.", "#0b8f5a");
+      form.reset();
+    } catch (err) {
+      setStatus("contact.form.error", "Échec de l'envoi. Réessayez ou contactez-nous par téléphone.", "#c0392b");
+      const subject = encodeURIComponent(
+        `[Site web] ${data.get("subject") || "Nouveau message"} — ${data.get("name") || ""}`
+      );
+      const body = encodeURIComponent(lines.join("\n"));
+      window.location.href = `mailto:contact@aquajex5f.tn?subject=${subject}&body=${body}`;
+    } finally {
+      submitBtn?.removeAttribute("disabled");
+    }
   });
 }
 
