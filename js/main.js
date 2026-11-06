@@ -195,6 +195,19 @@ const DICT = {
     "contact.form.sending": "Envoi en cours…",
     "contact.form.success": "Message envoyé ! Nous vous recontacterons rapidement.",
     "contact.form.error": "Échec de l'envoi. Réessayez ou contactez-nous par téléphone.",
+    "cart.title": "Votre panier",
+    "cart.empty": "Votre panier est vide.",
+    "cart.add": "Ajouter au panier",
+    "cart.checkout.title": "Vos coordonnées",
+    "cart.form.lastname": "Nom",
+    "cart.form.firstname": "Prénom",
+    "cart.form.phone": "Téléphone",
+    "cart.form.city": "Ville",
+    "cart.form.address": "Adresse",
+    "cart.form.submit": "Envoyer la commande",
+    "cart.form.sending": "Envoi en cours…",
+    "cart.form.success": "Commande envoyée ! Nous vous recontacterons rapidement.",
+    "cart.form.error": "Échec de l'envoi. Réessayez ou contactez-nous par téléphone.",
 
     "footer.tagline": "Deux marques, une même exigence de qualité — depuis Sfax, pour toute la Tunisie.",
     "footer.nav": "Navigation",
@@ -396,6 +409,19 @@ const DICT = {
     "contact.form.sending": "Sending…",
     "contact.form.success": "Message sent! We'll get back to you shortly.",
     "contact.form.error": "Couldn't send it. Please try again or call us.",
+    "cart.title": "Your cart",
+    "cart.empty": "Your cart is empty.",
+    "cart.add": "Add to cart",
+    "cart.checkout.title": "Your details",
+    "cart.form.lastname": "Last name",
+    "cart.form.firstname": "First name",
+    "cart.form.phone": "Phone",
+    "cart.form.city": "City",
+    "cart.form.address": "Address",
+    "cart.form.submit": "Send order",
+    "cart.form.sending": "Sending…",
+    "cart.form.success": "Order sent! We'll get back to you shortly.",
+    "cart.form.error": "Couldn't send it. Please try again or call us.",
 
     "footer.tagline": "Two brands, one quality standard — from Sfax, for all of Tunisia.",
     "footer.nav": "Navigation",
@@ -635,6 +661,218 @@ const BRAND_NAMES = {
 };
 const PAGE_SIZE = 12;
 
+// ---------- Cart (localStorage, orders sent to the same Telegram chat as
+// the app) : pas de prix publics, juste les réfs + quantités choisies par
+// le client, à faire valider par l'équipe commerciale.
+
+const CART_STORAGE_KEY = "aquajex_cart";
+
+function getCart() {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function cartCount(cart) {
+  return cart.reduce((sum, it) => sum + it.qty, 0);
+}
+
+function updateCartBadge(cart) {
+  const count = cartCount(cart || getCart());
+  document.querySelectorAll("#cart-count").forEach((el) => {
+    el.textContent = count;
+    el.hidden = count === 0;
+  });
+}
+
+function saveCart(cart) {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  } catch {}
+  updateCartBadge(cart);
+  return cart;
+}
+
+function addToCart(ref, qty = 1) {
+  const cart = getCart();
+  const existing = cart.find((it) => it.ref === ref);
+  if (existing) existing.qty += qty;
+  else cart.push({ ref, qty });
+  return saveCart(cart);
+}
+
+function setCartQty(ref, qty) {
+  let cart = getCart();
+  if (qty <= 0) {
+    cart = cart.filter((it) => it.ref !== ref);
+  } else {
+    const existing = cart.find((it) => it.ref === ref);
+    if (existing) existing.qty = qty;
+  }
+  return saveCart(cart);
+}
+
+function removeFromCart(ref) {
+  return saveCart(getCart().filter((it) => it.ref !== ref));
+}
+
+function initCart() {
+  const drawer = document.getElementById("cart-drawer");
+  if (!drawer) return;
+
+  const toggle = document.getElementById("cart-toggle");
+  const closeBtn = document.getElementById("cart-drawer-close");
+  const itemsEl = document.getElementById("cart-items");
+  const emptyEl = document.getElementById("cart-empty");
+  const form = document.getElementById("cart-checkout-form");
+
+  let productsByRef = {};
+
+  updateCartBadge(getCart());
+
+  fetch("data/products.json")
+    .then((r) => r.json())
+    .then((data) => {
+      data.forEach((p) => {
+        productsByRef[p.ref] = p;
+      });
+      renderCartItems();
+    })
+    .catch(() => {});
+
+  function renderCartItems() {
+    const cart = getCart();
+    if (!itemsEl) return;
+    if (cart.length === 0) {
+      itemsEl.innerHTML = "";
+      if (emptyEl) emptyEl.hidden = false;
+      if (form) form.hidden = true;
+      return;
+    }
+    if (emptyEl) emptyEl.hidden = true;
+    if (form) form.hidden = false;
+    itemsEl.innerHTML = cart
+      .map((it) => {
+        const p = productsByRef[it.ref];
+        if (!p) return "";
+        return `
+          <div class="cart-item" data-ref="${it.ref}">
+            <img src="${p.img}" alt="${p.name}" />
+            <div class="cart-item-info">
+              <span class="cart-item-name">${p.name}</span>
+              <span class="cart-item-ref">Réf. ${p.ref}</span>
+              <div class="cart-item-qty">
+                <button type="button" class="qty-btn" data-action="dec" aria-label="-">−</button>
+                <span>${it.qty}</span>
+                <button type="button" class="qty-btn" data-action="inc" aria-label="+">+</button>
+              </div>
+            </div>
+            <button type="button" class="cart-item-remove" aria-label="Retirer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>`;
+      })
+      .join("");
+  }
+
+  function openDrawer() {
+    renderCartItems();
+    drawer.classList.add("open");
+    document.body.classList.add("modal-open");
+  }
+  function closeDrawer() {
+    drawer.classList.remove("open");
+    document.body.classList.remove("modal-open");
+  }
+  window.__openCartDrawer = openDrawer;
+
+  toggle?.addEventListener("click", openDrawer);
+  closeBtn?.addEventListener("click", closeDrawer);
+  drawer.addEventListener("click", (e) => {
+    if (e.target === drawer) closeDrawer();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDrawer();
+  });
+
+  itemsEl?.addEventListener("click", (e) => {
+    const item = e.target.closest(".cart-item");
+    if (!item) return;
+    const ref = item.dataset.ref;
+    const cart = getCart();
+    const current = cart.find((it) => it.ref === ref);
+    if (e.target.closest('[data-action="inc"]')) {
+      setCartQty(ref, (current?.qty || 0) + 1);
+      renderCartItems();
+    } else if (e.target.closest('[data-action="dec"]')) {
+      setCartQty(ref, (current?.qty || 0) - 1);
+      renderCartItems();
+    } else if (e.target.closest(".cart-item-remove")) {
+      removeFromCart(ref);
+      renderCartItems();
+    }
+  });
+
+  if (form) {
+    const statusEl = document.getElementById("cart-form-status");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const setStatus = (key, fallback, color) => {
+      if (!statusEl) return;
+      statusEl.textContent = DICT[getLang()]?.[key] || fallback;
+      statusEl.style.color = color;
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const cart = getCart();
+      if (cart.length === 0) return;
+      const data = new FormData(form);
+      const lines = [
+        "🛒 Nouvelle commande depuis le site web",
+        `Nom : ${data.get("nom") || "—"}`,
+        `Prénom : ${data.get("prenom") || "—"}`,
+        `Téléphone : ${data.get("phone") || "—"}`,
+        `Ville : ${data.get("ville") || "—"}`,
+        `Adresse : ${data.get("adresse") || "—"}`,
+        "",
+        "Articles :",
+        ...cart.map((it) => {
+          const p = productsByRef[it.ref];
+          return `- ${p ? p.name : it.ref} (Réf. ${it.ref}) x${it.qty}`;
+        }),
+      ];
+      const text = lines.join("\n");
+
+      submitBtn?.setAttribute("disabled", "true");
+      setStatus("cart.form.sending", "Envoi en cours…", "#5b6b80");
+
+      try {
+        const res = await fetch(
+          `https://api.telegram.org/bot${CONTACT_TELEGRAM_BOT_TOKEN}/sendMessage`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ chat_id: CONTACT_TELEGRAM_CHAT_ID, text }),
+          }
+        );
+        if (!res.ok) throw new Error(`telegram status ${res.status}`);
+        setStatus("cart.form.success", "Commande envoyée ! Nous vous recontacterons rapidement.", "#0b8f5a");
+        form.reset();
+        saveCart([]);
+        renderCartItems();
+      } catch (err) {
+        setStatus("cart.form.error", "Échec de l'envoi. Réessayez ou contactez-nous par téléphone.", "#c0392b");
+      } finally {
+        submitBtn?.removeAttribute("disabled");
+      }
+    });
+  }
+}
+
 function initCatalog() {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
@@ -767,10 +1005,15 @@ function initCatalog() {
         <h3>${p.name}</h3>
         <span class="cat-label">${catLabel(p)}</span>
         <span class="ref">Réf. ${p.ref}</span>
-        <button type="button" class="btn-cart btn-details">
-          <span data-i18n="products.item.details">Voir les détails</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <div class="card-actions">
+          <button type="button" class="btn-cart btn-details">
+            <span data-i18n="products.item.details">Voir les détails</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="btn-add-cart" aria-label="Ajouter au panier" title="Ajouter au panier">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1.2 10.2a2 2 0 01-2 1.8H9.2a2 2 0 01-2-1.8L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
       </div>`;
   }
 
@@ -820,6 +1063,13 @@ function initCatalog() {
     const wishBtn = e.target.closest(".wish-btn");
     if (wishBtn) {
       wishBtn.classList.toggle("active");
+      return;
+    }
+    const addBtn = e.target.closest(".btn-add-cart");
+    if (addBtn) {
+      const card = addBtn.closest(".product-card");
+      addToCart(card.dataset.ref, 1);
+      window.__openCartDrawer?.();
       return;
     }
     const detailsBtn = e.target.closest(".btn-details");
@@ -915,8 +1165,10 @@ function initCatalog() {
   });
 
   // --- modal ---
+  let currentModalRef = null;
   function openModal(p) {
     if (!modal) return;
+    currentModalRef = p.ref;
     modal.querySelector(".pm-img img").src = p.img;
     modal.querySelector(".pm-img img").alt = p.name;
     modal.querySelector(".pm-title").textContent = p.name;
@@ -924,6 +1176,8 @@ function initCatalog() {
     modal.querySelector(".pm-ref").textContent = `Réf. ${p.ref}`;
     modal.querySelector(".pm-brand img").src = BRAND_LOGOS[p.brand];
     modal.querySelector(".pm-brand span").textContent = BRAND_NAMES[p.brand];
+    const qtyInput = modal.querySelector("#pm-qty-input");
+    if (qtyInput) qtyInput.value = 1;
     modal.classList.add("open");
     document.body.classList.add("modal-open");
   }
@@ -939,6 +1193,23 @@ function initCatalog() {
     });
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeModal();
+    });
+
+    const qtyInput = modal.querySelector("#pm-qty-input");
+    modal.querySelector("#pm-qty-dec")?.addEventListener("click", () => {
+      if (!qtyInput) return;
+      qtyInput.value = Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1);
+    });
+    modal.querySelector("#pm-qty-inc")?.addEventListener("click", () => {
+      if (!qtyInput) return;
+      qtyInput.value = (parseInt(qtyInput.value, 10) || 1) + 1;
+    });
+    modal.querySelector("#pm-add-cart")?.addEventListener("click", () => {
+      if (!currentModalRef) return;
+      const qty = Math.max(1, parseInt(qtyInput?.value, 10) || 1);
+      addToCart(currentModalRef, qty);
+      window.__openCartDrawer?.();
+      closeModal();
     });
   }
 
@@ -1015,6 +1286,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
   initParticles();
   initCounters();
+  initCart();
   initCatalog();
   initNouveautes();
 });
