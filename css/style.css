@@ -967,6 +967,15 @@ section {
   display: block;
 }
 
+.why-photo-logo {
+  background: #fff;
+}
+
+.why-photo-logo img {
+  object-fit: contain;
+  padding: 14%;
+}
+
 .why-photo-1 {
   width: 76%;
   aspect-ratio: 4 / 5;
