@@ -842,7 +842,7 @@ function initCart() {
         "Articles :",
         ...cart.map((it) => {
           const p = productsByRef[it.ref];
-          return `- ${p ? p.name : it.ref} (Réf. ${it.ref}) x${it.qty}`;
+          return `- Réf. ${it.ref} ${p ? p.name : ""} x${it.qty}`;
         }),
       ];
       const text = lines.join("\n");
