@@ -799,6 +799,117 @@ nav.main-nav a.active::after {
   animation: blob-morph 16s ease-in-out infinite alternate-reverse;
 }
 
+/* ---------- Home news ticker (animated strip of newest products) ---------- */
+
+.news-ticker-section {
+  padding: 50px 0 60px;
+  overflow: hidden;
+}
+
+.news-ticker-head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.news-ticker-head h2 {
+  font-size: 28px;
+}
+
+.eyebrow-pulse::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(8, 121, 201, 0.22);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+.news-ticker-mask {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.news-ticker-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: ticker-scroll 32s linear infinite;
+}
+
+.news-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-card {
+  flex: 0 0 auto;
+  width: 190px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ticker-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.ticker-card .thumb {
+  position: relative;
+  border-radius: 12px;
+  background: var(--blue-soft);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.ticker-card .thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.ticker-card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ticker-card .ref {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
 /* ---------- Section shells ---------- */
 
 section {

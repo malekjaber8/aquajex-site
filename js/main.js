@@ -29,6 +29,9 @@ const DICT = {
     "home.card2.title": "Les Cinq Frères",
     "home.card2.sub": "Hygiène & maison",
 
+    "home.ticker.eyebrow": "Fraîchement ajouté",
+    "home.ticker.title": "Nos derniers produits",
+
     "home.values.eyebrow": "Pourquoi Aquajex 5F",
     "home.values.title1": "Une qualité constante,",
     "home.values.title2": "une disponibilité totale.",
@@ -246,6 +249,9 @@ const DICT = {
     "home.card1.sub": "Cleaning & care",
     "home.card2.title": "Les Cinq Frères",
     "home.card2.sub": "Home & hygiene",
+
+    "home.ticker.eyebrow": "Freshly added",
+    "home.ticker.title": "Our latest products",
 
     "home.values.eyebrow": "Why Aquajex 5F",
     "home.values.title1": "Consistent quality,",
@@ -1309,6 +1315,50 @@ function initNouveautes() {
     });
 }
 
+// Bandeau animé de la page d'accueil : défilement en boucle des mêmes
+// produits "Nouveauté" (voir data/products.json) que la page Actualités —
+// aucune donnée inventée, uniquement les vraies fiches déjà marquées.
+function initHomeTicker() {
+  const track = document.getElementById("news-ticker-track");
+  if (!track) return;
+
+  fetch("data/products.json")
+    .then((r) => r.json())
+    .then((data) => {
+      const items = data.filter((p) => p.nouveaute);
+      const section = track.closest("section");
+      if (items.length === 0) {
+        if (section) section.hidden = true;
+        return;
+      }
+
+      const render = () => {
+        const lang = getLang();
+        const cardHtml = (p) => `
+          <a class="ticker-card reveal in" href="products.html?q=${encodeURIComponent(p.ref)}">
+            <div class="thumb">
+              <span class="badge-tag new">${lang === "en" ? "New" : "Nouveau"}</span>
+              <img src="${p.img}" alt="${p.name}" loading="lazy" />
+            </div>
+            <h4>${p.name}</h4>
+            <span class="ref">Réf. ${p.ref}</span>
+          </a>`;
+        // La liste est dupliquée pour permettre une boucle d'animation continue et sans à-coup.
+        const loop = items.length < 4 ? [...items, ...items, ...items] : items;
+        track.innerHTML = loop.map(cardHtml).join("") + loop.map(cardHtml).join("");
+      };
+
+      render();
+      document.querySelectorAll(".lang-switch button").forEach((btn) => {
+        btn.addEventListener("click", render);
+      });
+    })
+    .catch(() => {
+      const section = track.closest("section");
+      if (section) section.hidden = true;
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initLangSwitch();
   initMobileNav();
@@ -1319,4 +1369,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initCart();
   initCatalog();
   initNouveautes();
+  initHomeTicker();
 });
