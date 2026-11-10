@@ -3370,6 +3370,48 @@ footer.site-footer {
   }
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .site-header .container {
+    column-gap: 8px;
+    height: 68px;
+  }
+
+  .brand {
+    gap: 8px;
+    font-size: 14.5px;
+  }
+
+  .brand img {
+    height: 32px;
+  }
+
+  .brand span.sub {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 7px;
+  }
+
+  .lang-switch button {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .menu-toggle {
+    padding: 4px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
