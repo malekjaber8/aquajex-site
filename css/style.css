@@ -1123,11 +1123,17 @@ section {
 
 .why-photo-logo {
   background: #fff;
+  outline: 1px solid rgba(16, 43, 70, 0.12);
+  outline-offset: -1px;
 }
 
 .why-photo-logo img {
   object-fit: contain;
   padding: 14%;
+}
+
+.why-photo-2.why-photo-logo img {
+  padding: 21%;
 }
 
 .why-photo-1 {
