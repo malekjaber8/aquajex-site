@@ -802,21 +802,57 @@ nav.main-nav a.active::after {
 /* ---------- Home news ticker (animated strip of newest products) ---------- */
 
 .news-ticker-section {
-  padding: 50px 0 60px;
+  position: relative;
   overflow: hidden;
+  padding: 76px 0 88px;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue-deep) 55%, var(--blue) 100%);
+}
+
+.news-ticker-deco {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(6px);
+}
+
+.news-ticker-deco.a {
+  width: 360px;
+  height: 360px;
+  top: -160px;
+  left: -70px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
+  animation: blob-morph 15s ease-in-out infinite alternate;
+}
+
+.news-ticker-deco.b {
+  width: 300px;
+  height: 300px;
+  bottom: -140px;
+  right: -60px;
+  background: radial-gradient(circle, rgba(33, 196, 216, 0.3), transparent 70%);
+  animation: blob-morph 18s ease-in-out infinite alternate-reverse;
 }
 
 .news-ticker-head {
+  position: relative;
+  z-index: 1;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 12px;
+  margin-bottom: 42px;
+}
+
+.news-ticker-head .eyebrow {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #fff;
 }
 
 .news-ticker-head h2 {
-  font-size: 28px;
+  color: #fff;
+  font-size: 34px;
 }
 
 .eyebrow-pulse::before {
@@ -824,13 +860,14 @@ nav.main-nav a.active::after {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--blue);
-  box-shadow: 0 0 0 3px rgba(8, 121, 201, 0.22);
+  background: var(--blue-bright);
+  box-shadow: 0 0 0 3px rgba(33, 196, 216, 0.3);
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
 .news-ticker-mask {
   position: relative;
+  z-index: 1;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
@@ -838,9 +875,10 @@ nav.main-nav a.active::after {
 
 .news-ticker-track {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   width: max-content;
-  animation: ticker-scroll 32s linear infinite;
+  padding: 6px 0 16px;
+  animation: ticker-scroll 38s linear infinite;
 }
 
 .news-ticker-track:hover {
@@ -858,32 +896,31 @@ nav.main-nav a.active::after {
 
 .ticker-card {
   flex: 0 0 auto;
-  width: 190px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm);
-  padding: 14px;
+  width: 250px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 22px 46px -18px rgba(4, 12, 26, 0.5);
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  gap: 14px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ticker-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow);
+  transform: translateY(-8px);
+  box-shadow: 0 30px 56px -16px rgba(4, 12, 26, 0.6);
 }
 
 .ticker-card .thumb {
   position: relative;
-  border-radius: 12px;
-  background: var(--blue-soft);
-  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  background: radial-gradient(circle at 32% 28%, #fff, var(--blue-soft) 78%);
+  aspect-ratio: 4 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px;
+  padding: 20px;
   overflow: hidden;
 }
 
@@ -894,7 +931,7 @@ nav.main-nav a.active::after {
 }
 
 .ticker-card h4 {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--navy);
   line-height: 1.35;
@@ -905,7 +942,7 @@ nav.main-nav a.active::after {
 }
 
 .ticker-card .ref {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   font-weight: 600;
 }
@@ -3342,6 +3379,19 @@ footer.site-footer {
   .trust-strip,
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .news-ticker-section {
+    padding: 56px 0 64px;
+  }
+
+  .news-ticker-head h2 {
+    font-size: 26px;
+  }
+
+  .ticker-card {
+    width: 196px;
+    padding: 14px;
   }
 
   .why-content .section-head {
