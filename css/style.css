@@ -1123,7 +1123,7 @@ section {
 
 .why-photo-logo {
   background: #fff;
-  outline: 1px solid rgba(16, 43, 70, 0.12);
+  outline: 1px solid rgba(16, 43, 70, 0.14);
   outline-offset: -1px;
 }
 
@@ -1132,7 +1132,21 @@ section {
   padding: 14%;
 }
 
-.why-photo-2.why-photo-logo img {
+.why-media-equal {
+  padding-bottom: 0;
+}
+
+.why-logo-pair {
+  display: flex;
+  gap: 18px;
+}
+
+.why-logo-pair .why-photo {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+}
+
+.why-logo-pair .why-photo:last-child img {
   padding: 21%;
 }
 
@@ -3279,6 +3293,10 @@ footer.site-footer {
     min-height: 300px;
     max-width: 420px;
     margin: 0 auto;
+  }
+
+  .why-media-equal {
+    min-height: auto;
   }
 
   .hero.hero-compact.hero-with-visual .container {
